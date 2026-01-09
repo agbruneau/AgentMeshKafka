@@ -75,6 +75,7 @@ class LoanDecision(BaseModel):
     
     application_id: str = Field(..., description="UUID de la demande")
     decision_id: str = Field(..., description="UUID unique de cette décision")
+    assessment_id: str = Field(..., description="UUID de l'évaluation associée")
     status: DecisionStatus = Field(..., description="Statut de la décision")
     approved_amount: Optional[float] = Field(default=None, description="Montant approuvé")
     interest_rate: Optional[float] = Field(default=None, description="Taux d'intérêt proposé")
