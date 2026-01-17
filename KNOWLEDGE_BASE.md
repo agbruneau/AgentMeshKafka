@@ -2090,6 +2090,354 @@ Crise Intégration (I.1)
 
 ---
 
+## SLOs & Métriques de Production
+
+### SLOs par Composant
+
+#### Apache Kafka
+
+| SLO | Objectif | Seuil Alerte | Source |
+|-----|----------|--------------|--------|
+| **Disponibilité cluster** | 99.95% | <99.9% | III.11 |
+| **Latence P99 (produce)** | <10ms | >50ms | III.3 |
+| **Latence P99 (consume)** | <100ms | >500ms | III.4 |
+| **Throughput par broker** | >100 MB/s | <50 MB/s | III.11 |
+| **Consumer Lag** | <1000 msgs | >10000 msgs | III.11 |
+| **Under-replicated partitions** | 0 | >0 | III.11 |
+| **RequestHandler idle** | >50% | <30% | III.11 |
+
+**Métriques Kafka Critiques :**
+
+| Métrique | Warning | Critical | Source |
+|----------|---------|----------|--------|
+| `UnderReplicatedPartitions` | >0 | >5 | III.11 |
+| `OfflinePartitionsCount` | >0 | >0 | III.11 |
+| `ActiveControllerCount` | ≠1 | ≠1 | III.11 |
+| `RequestHandlerAvgIdlePercent` | <40% | <30% | III.11 |
+| `NetworkProcessorAvgIdlePercent` | <40% | <30% | III.11 |
+| `Consumer Lag (msgs)` | >1000 | >10000 | III.11 |
+| `BytesInPerSec` (par broker) | <50 MB/s | <20 MB/s | III.11 |
+
+#### Vertex AI / Agents Cognitifs
+
+| SLO | Objectif | Seuil Alerte | Source |
+|-----|----------|--------------|--------|
+| **Disponibilité Vertex AI** | 99.9% | <99.5% | II.6 |
+| **Latence Intake Agent (Haiku)** | P99 <200ms | >500ms | CLAUDE.md |
+| **Latence Risk Agent (Sonnet)** | P99 <2s | >5s | CLAUDE.md |
+| **Latence Decision Agent (Sonnet)** | P99 <500ms | >2s | CLAUDE.md |
+| **Task Success Rate** | ≥95% | <95% | II.11 |
+| **Hallucination Rate** | ≤5% | >5% | II.11 |
+| **Escalation Rate** | ≤20% | >20% | II.11 |
+| **Coût par tâche** | <$0.10 | >$0.10 | II.11 |
+
+**KAIs (Key Agent Indicators) - Seuils Production :**
+
+| KAI | Cible | Warning | Critical | Source |
+|-----|-------|---------|----------|--------|
+| Task Success Rate | ≥95% | 90-95% | <90% | II.11 |
+| Hallucination Rate | ≤5% | 5-10% | >10% | II.11 |
+| Latency P99 | Variable par agent | +50% | +100% | II.11 |
+| Cost per Task | <$0.10 | $0.10-0.20 | >$0.20 | II.11 |
+| Escalation Rate | ≤20% | 20-30% | >30% | II.11 |
+
+#### Apache Iceberg Lakehouse
+
+| SLO | Objectif | Seuil Alerte | Source |
+|-----|----------|--------------|--------|
+| **Fraîcheur données** | <5 min | >15 min | IV.11 |
+| **Latence requêtes SQL** | P99 <10s | >30s | IV.11 |
+| **Disponibilité catalogue** | 99.9% | <99.5% | IV.7 |
+| **Taux erreur compaction** | <1% | >5% | IV.10 |
+| **Time travel performance** | <2× temps normal | >5× | IV.2 |
+
+**Métriques Iceberg :**
+
+| Métrique | Warning | Critical | Source |
+|----------|---------|----------|--------|
+| Snapshots non expirés | >1000 | >10000 | IV.10 |
+| Small files par partition | >100 | >1000 | IV.10 |
+| Manifest files par snapshot | >1000 | >10000 | IV.2 |
+| Lag ingestion CDC | >10 min | >1 heure | IV.6 |
+
+### Benchmarks de Performance
+
+#### Kafka Workloads Agentiques
+
+| Métrique | Workload Traditionnel | Workload Agentique | Impact |
+|----------|----------------------|-------------------|--------|
+| Ratio messages/transaction | 1-3 | 5-15 | ×5 volume |
+| Taille moyenne message | 1-10 KB | 10-100 KB | ×10 taille |
+| Exigence latence | <100ms | <500ms | Tolérance ×5 |
+| Pattern consommation | Batch micro | Message par message | Plus granulaire |
+| Besoin rejouabilité | Modéré | Critique (audit) | Rétention longue | III.12 |
+
+#### Latences Agents par Modèle Claude
+
+| Agent | Modèle | Température | Latence P50 | Latence P99 | Source |
+|-------|--------|-------------|-------------|-------------|--------|
+| Intake | Haiku 3.5 | 0.0 | <100ms | <200ms | CLAUDE.md |
+| Risk | Sonnet 4 | 0.2 | <1s | <2s | CLAUDE.md |
+| Decision | Sonnet 3.5 | 0.1 | <250ms | <500ms | CLAUDE.md |
+
+---
+
+## Contraintes & Limitations Techniques
+
+### Contraintes Apache Kafka
+
+| Contrainte | Limite | Workaround | Impact | Source |
+|------------|--------|------------|--------|--------|
+| **Taille message max** | 1 MB (défaut) | Compression zstd, chunking | Messages contextes LLM >100KB | II.2 |
+| **Partitions par topic** | ~4000 (pratique) | Multiple topics, partioning stratégique | Scalabilité horizontale limitée | III.2 |
+| **Latence ajoutée mTLS** | +5-10ms | TLS terminé proxy, optimisation | Latence cumulée | II.14 |
+| **Réplication factor** | Max 5 (pratique) | 3 recommandé (balance coût/disponibilité) | Overhead stockage ×3 | II.2 |
+| **Consumer lag accru (agentique)** | Multiplié par ratio messages | Optimisation batching, parallélisme | Charge traitement | III.12 |
+| **Throughput par partition** | ~1-10 MB/s | Augmenter partitions, hardware SSD | Limite débit séquentiel | III.2 |
+
+**Limites de Scalabilité :**
+- **Clusters KRaft** : Millions de partitions (vs ~200K avec ZooKeeper) - III.12
+- **Topics par cluster** : ~1M (théorique), ~10K (pratique) - III.9
+- **Consommateurs par groupe** : ≤ nombre partitions (sans Share Groups) - III.4
+
+### Contraintes Vertex AI
+
+| Contrainte | Limite | Impact | Workaround | Source |
+|------------|--------|--------|------------|--------|
+| **Quota requêtes (Gemini Pro)** | 1200/min | Rate limiting nécessaire | Queue + retry exponential | II.6 |
+| **Context window max** | 1M tokens (Gemini 2.0) | Chunking RAG obligatoire | Stratégie chunking optimisée | II.7 |
+| **Coût par token** | $0.25/1M input (Gemini Pro) | Coûts variables selon usage | Optimisation prompts, cache | II.6 |
+| **Latence inférence** | 100ms-5s selon modèle | Latence bout-en-bout agent | Modèles rapides (Haiku) pour cases courants | II.8 |
+| **Disponibilité SLA** | 99.9% (GCP) | 0.1% downtime = ~43 min/mois | Retry + fallback agents | II.6 |
+| **Limites Model Armor** | ~50KB par prompt | Prompts complexes fragmentés | Preprocessing prompts | II.14 |
+
+**Limites par Modèle Claude :**
+
+| Modèle | Context Window | Latence Typique | Coût/M tokens | Usage Optimal |
+|--------|----------------|-----------------|---------------|---------------|
+| Haiku 3.5 | 200K | <200ms | $0.25/1M input | Validation, routage |
+| Sonnet 3.5 | 200K | <1s | $3/1M input | Raisonnement complexe |
+| Sonnet 4 | 200K | 1-2s | $3/1M input | RAG, analyse |
+| Opus 4.5 | 200K | 2-5s | $15/1M input | Décisions critiques |
+
+### Contraintes Apache Iceberg
+
+| Contrainte | Limite | Impact | Workaround | Source |
+|------------|--------|--------|------------|--------|
+| **Snapshot expirés** | Croissance illimitée | Coût stockage métadonnées | Expiration automatique (N jours) | IV.10 |
+| **Small files** | Impact performance lecture | Latence requêtes | Compaction périodique (quotidien) | IV.10 |
+| **Manifest files** | Growth exponentielle | Métadonnées volumineuses | Rewrite manifests, partitioning | IV.2 |
+| **Time travel** | N snapshots conservés | Coût stockage historique | Rétention limitée (ex: 30 jours) | IV.2 |
+| **CDC lag** | Dépendant Kafka lag | Fraîcheur données | Optimisation consumer Kafka | IV.6 |
+| **Requêtes cross-partition** | Performance dégradée | Latence élevée | Partitioning stratégique | IV.3 |
+
+**Capacité Stockage :**
+- **Théorique** : Illimitée (stockage objet S3/GCS)
+- **Pratique** : Limitée par coûts storage (hot/warm/cold tiers) - IV.5
+
+### Contraintes Réglementaires Impact Architecture
+
+| Réglementation | Exigence | Impact Technique | Source |
+|----------------|----------|------------------|--------|
+| **RGPD (EU)** | Résidence données UE | Déploiement Kafka/Vertex AI région UE | II.15 |
+| **Loi 25 (Québec)** | Consentement explicite | Traçabilité décisions agents dans logs | II.15 |
+| **AI Act (EU)** | Transparence décisions | Chain of Thought obligatoire (Constitution) | II.15 |
+| **BSIF (Canada)** | Résidence données Canada | Infrastructure cloud canadienne uniquement | IV.15 |
+
+**Contraintes Sécurité :**
+- **mTLS obligatoire** : Tous services inter-agents (latence +5-10ms) - II.14
+- **Chiffrement at-rest** : Données Kafka/Iceberg (overhead stockage ~10%) - II.14
+- **PII sanitization** : Preprocessing prompts Vertex AI (latence +50-100ms) - II.14
+
+---
+
+## Architecture Decision Records (ADRs)
+
+### ADR-001 : Apache Kafka vs Alternatives (RabbitMQ, Pulsar)
+
+**Date :** 2025-01-15  
+**Statut :** ✅ Accepté  
+**Décideur :** Architecture Team
+
+**Contexte :**
+Besoin d'un backbone événementiel pour maillage agentique avec exigences : log immuable, haute disponibilité, rétention longue, écosystème riche.
+
+**Alternatives considérées :**
+1. **Apache Kafka** (KRaft mode)
+2. **Apache Pulsar** (multi-tenancy avancée)
+3. **RabbitMQ** (maturité, simplicité)
+
+**Décision :**
+Apache Kafka (KRaft mode) sélectionné comme backbone événementiel.
+
+**Justification :**
+| Critère | Kafka | Pulsar | RabbitMQ | Décision |
+|---------|-------|--------|----------|----------|
+| **Throughput** | ⭐⭐⭐⭐⭐ (100+ MB/s) | ⭐⭐⭐⭐ | ⭐⭐⭐ | Kafka : priorité débit |
+| **Event Sourcing** | ⭐⭐⭐⭐⭐ (log immuable) | ⭐⭐⭐⭐ | ⭐⭐ | Kafka : log distribué natif |
+| **Rétention longue** | ⭐⭐⭐⭐⭐ (illimitée) | ⭐⭐⭐⭐ | ⭐⭐ | Kafka : Event Sourcing requis |
+| **Écosystème** | ⭐⭐⭐⭐⭐ (200+ connecteurs) | ⭐⭐⭐ | ⭐⭐ | Kafka : Schema Registry, ksqlDB |
+| **Adoption entreprise** | ⭐⭐⭐⭐⭐ (80% Fortune 100) | ⭐⭐⭐ | ⭐⭐⭐⭐ | Kafka : expertise disponible |
+| **Multi-tenancy** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | - |
+| **Opérationnel** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | - |
+
+**Conséquences :**
+- ✅ Log distribué immuable pour audit décisions agents
+- ✅ Schema Registry pour contrats données entre agents
+- ⚠️ Expertise opérationnelle requise (équipe plateforme)
+- ⚠️ KRaft mode (réduction dépendance ZooKeeper)
+
+**Source :** III.1, III.5
+
+---
+
+### ADR-002 : Google Cloud Vertex AI vs AWS Bedrock / Azure OpenAI
+
+**Date :** 2025-01-15  
+**Statut :** ✅ Accepté  
+**Décideur :** Architecture Team
+
+**Contexte :**
+Besoin d'une plateforme GenAI pour agents cognitifs avec modèles Claude, RAG, et outils avancés (Agent Builder, Grounding).
+
+**Alternatives considérées :**
+1. **Google Cloud Vertex AI** (Model Garden, Claude support)
+2. **AWS Bedrock** (Anthropic Claude, large écosystème)
+3. **Azure OpenAI** (GPT-4, intégration Microsoft)
+
+**Décision :**
+Google Cloud Vertex AI sélectionné pour plateforme IA cognitive.
+
+**Justification :**
+| Critère | Vertex AI | AWS Bedrock | Azure OpenAI | Décision |
+|---------|-----------|-------------|--------------|----------|
+| **Support Claude** | ⭐⭐⭐⭐⭐ (natif) | ⭐⭐⭐⭐⭐ (natif) | ⭐⭐ | Vertex AI/Bedrock : équivalent |
+| **RAG avancé** | ⭐⭐⭐⭐⭐ (Vector Search, Grounding) | ⭐⭐⭐⭐ | ⭐⭐⭐ | Vertex AI : meilleur intégration |
+| **Agent Builder** | ⭐⭐⭐⭐⭐ (low-code) | ⭐⭐⭐ | ⭐⭐ | Vertex AI : outil dédié |
+| **Model Armor** | ⭐⭐⭐⭐⭐ (protection native) | ⭐⭐⭐ | ⭐⭐ | Vertex AI : sécurité intégrée |
+| **Intégration GCP** | ⭐⭐⭐⭐⭐ (native) | ⭐⭐ | ⭐⭐ | Vertex AI : stack GCP unifié |
+| **Coût** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | - |
+
+**Conséquences :**
+- ✅ Agent Builder accélère développement agents
+- ✅ Model Armor protection injection/jailbreak native
+- ✅ Vector Search intégré pour RAG
+- ⚠️ Vendor lock-in GCP (mitigé par abstractions)
+- ⚠️ Quotas requêtes (rate limiting nécessaire)
+
+**Source :** II.6, II.14
+
+---
+
+### ADR-003 : Apache Iceberg vs Delta Lake / Apache Hudi
+
+**Date :** 2025-01-15  
+**Statut :** ✅ Accepté  
+**Décideur :** Data Architecture Team
+
+**Contexte :**
+Besoin d'un format table pour lakehouse avec ACID, time travel, et intégration Kafka-Iceberg (Tableflow).
+
+**Alternatives considérées :**
+1. **Apache Iceberg** (open source, large adoption)
+2. **Delta Lake** (Databricks, optimisations Spark)
+3. **Apache Hudi** (upsert efficaces)
+
+**Décision :**
+Apache Iceberg sélectionné pour format table lakehouse.
+
+**Justification :**
+| Critère | Iceberg | Delta Lake | Hudi | Décision |
+|---------|---------|------------|------|----------|
+| **Open source** | ⭐⭐⭐⭐⭐ (Apache) | ⭐⭐⭐ (Databricks) | ⭐⭐⭐⭐⭐ (Apache) | Iceberg : vendor-agnostic |
+| **Adoption large** | ⭐⭐⭐⭐⭐ (Netflix, Apple) | ⭐⭐⭐⭐ | ⭐⭐⭐ | Iceberg : communauté active |
+| **Time travel** | ⭐⭐⭐⭐⭐ (snapshots) | ⭐⭐⭐⭐ | ⭐⭐⭐ | Iceberg : mécanisme simple |
+| **Schema evolution** | ⭐⭐⭐⭐⭐ (compatible) | ⭐⭐⭐⭐ | ⭐⭐⭐ | Iceberg : évolution fluide |
+| **Kafka integration** | ⭐⭐⭐⭐⭐ (Tableflow) | ⭐⭐⭐ | ⭐⭐ | Iceberg : intégration native |
+| **Multi-engine** | ⭐⭐⭐⭐⭐ (Spark, Flink, Trino) | ⭐⭐⭐ | ⭐⭐⭐ | Iceberg : polyvalence |
+
+**Conséquences :**
+- ✅ Time travel pour audit décisions agents
+- ✅ Schema evolution sans downtime
+- ✅ Tableflow : Kafka → Iceberg automatique
+- ⚠️ Compaction maintenance requise (small files)
+
+**Source :** IV.1, IV.12
+
+---
+
+### ADR-004 : KRaft Mode vs ZooKeeper
+
+**Date :** 2025-01-15  
+**Statut :** ✅ Accepté  
+**Décideur :** Infrastructure Team
+
+**Contexte :**
+Déploiement Kafka nécessite choix mode coordination : ZooKeeper (stable) vs KRaft (nouveau, ZooKeeper déprécié).
+
+**Alternatives considérées :**
+1. **KRaft mode** (Kafka Raft - métadonnées internes)
+2. **ZooKeeper** (mode legacy, déprécié Kafka 4.0)
+
+**Décision :**
+KRaft mode adopté pour nouveau cluster Kafka.
+
+**Justification :**
+| Critère | KRaft | ZooKeeper | Décision |
+|---------|-------|-----------|----------|
+| **Scalabilité** | ⭐⭐⭐⭐⭐ (millions partitions) | ⭐⭐⭐ (~200K partitions) | KRaft : scalabilité supérieure |
+| **Simplicité opérationnelle** | ⭐⭐⭐⭐⭐ (moins composants) | ⭐⭐⭐ (2 systèmes) | KRaft : moins de complexité |
+| **Performance** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | KRaft : latence réduite |
+| **Maturité** | ⭐⭐⭐⭐ (GA depuis 2023) | ⭐⭐⭐⭐⭐ (10+ ans) | - |
+| **Support futur** | ⭐⭐⭐⭐⭐ (standard Kafka 4.0+) | ⭐ (déprécié) | KRaft : support long terme |
+
+**Conséquences :**
+- ✅ Scalabilité clusters améliorée (millions partitions)
+- ✅ Moins de composants opérationnels (pas ZooKeeper)
+- ⚠️ Migration nécessaire si cluster ZooKeeper existant
+- ⚠️ Maturité moindre (GA récente)
+
+**Source :** II.2, III.2, III.12
+
+---
+
+### ADR-005 : Agents via Kafka Topics (Zero Trust) vs Direct API Calls
+
+**Date :** 2025-01-15  
+**Statut :** ✅ Accepté  
+**Décideur :** Architecture Agentique Team
+
+**Contexte :**
+Communication inter-agents : Kafka topics (asynchrone) vs API REST directes (synchrone).
+
+**Alternatives considérées :**
+1. **Kafka topics uniquement** (pub/sub asynchrone)
+2. **API REST directes** (requête/réponse synchrone)
+3. **Hybride** (Kafka + API pour cas spécifiques)
+
+**Décision :**
+Communication inter-agents exclusivement via Kafka topics (Zero Trust).
+
+**Justification :**
+| Critère | Kafka Topics | API REST | Décision |
+|---------|--------------|----------|----------|
+| **Découplage** | ⭐⭐⭐⭐⭐ (pub/sub) | ⭐⭐ (couplage temporel) | Kafka : découplage maximal |
+| **Scalabilité** | ⭐⭐⭐⭐⭐ (parallélisme natif) | ⭐⭐⭐ | Kafka : charge distribuée |
+| **Audit trail** | ⭐⭐⭐⭐⭐ (log immuable) | ⭐⭐ | Kafka : traçabilité complète |
+| **Résilience** | ⭐⭐⭐⭐⭐ (retry, DLQ) | ⭐⭐⭐ | Kafka : patterns résilience |
+| **Latence** | ⭐⭐⭐ (asynchrone) | ⭐⭐⭐⭐⭐ (synchrone) | - |
+
+**Conséquences :**
+- ✅ Découplage temporel/spatial/logique agents
+- ✅ Audit trail complet pour conformité (RGPD, AI Act)
+- ✅ Patterns résilience (circuit breaker, DLQ)
+- ⚠️ Latence asynchrone (acceptable pour cas d'usage agentique)
+- ⚠️ Complexité architecture événementielle
+
+**Source :** I.14, II.8, CLAUDE.md (Constitution Rules)
+
+---
+
 ## Synthèse Architecturale Finale
 
 ### Stack Technologique Complet
