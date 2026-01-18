@@ -1,7 +1,7 @@
 # Cahier des Charges - Simulation EDA Kafka
 
 ## Prompt
-Posez-moi une question à la fois afin que nous puissions élaborer un cahier des charges détaillé et étape par étape pour cette idée. Chaque question doit s'appuyer sur mes réponses précédentes, et notre objectif final est d'obtenir un cahier des charges précis que je pourrai transmettre à un développeur. Procédons par itérations et approfondissons chaque détail pertinent. N'oubliez pas : une seule question à la fois.
+Posez-moi une question à la fois afin que nous puissions élaborer un cahier des charges détaillé et étape par étape pour cette idée. Chaque question doit s'appuyer sur mes réponses précédentes, et notre objectif final est d'obtenir un cahier des charges (Specs.md)précis que je pourrai transmettre à un développeur. Procédons par itérations et approfondissons chaque détail pertinent. N'oubliez pas : une seule question à la fois.
 
 Voici l'idée : Développer une simulation dans le domaine de l'interopérabilité en écosystèmes d'entreprise fondée initialement sur le patron d'architecture  Producteur/Consommateur, et par la suite des patrons d'architectures connexes les plus répandus, le tout fondée sur une Apache Kafka. Cette solution est une application académique pour apprendre et expérimenter l'implémentation et exploitations de ces patrons d'architecture en EDA - Event Driven Architecture. Le tout doit être fondée sur Apache Kafka avec des mécanismes d'observabilités. Cette application sera entièrement générer à l'aide de Claude Code et Cursor.
 
