@@ -1,4 +1,6 @@
-# PLAN.MD - Plan d'implémentation EDA-Lab
+# PLAN.md - Plan d'implémentation EDA-Lab
+
+**Navigation :** [README.md](./README.md) | [PDR.md](./PDR.md) | [TODO.md](./TODO.md)
 
 ## Vue d'ensemble
 
@@ -39,7 +41,7 @@ Mettre en place l'infrastructure Docker Compose avec Kafka (KRaft), Schema Regis
 
 #### Sous-étape 0.1.1 : Création de la structure de répertoires
 
-**Contexte :** Créer la structure de base du monorepo selon le PDR.MD.
+**Contexte :** Créer la structure de base du monorepo selon le PDR.md.
 
 ```text
 PROMPT CLAUDE CODE - Étape 0.1.1

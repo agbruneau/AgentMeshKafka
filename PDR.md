@@ -5,6 +5,8 @@
 **Date :** 2026-01-19
 **Statut :** Approuvé
 
+**Navigation :** [README.md](./README.md) | [PLAN.md](./PLAN.md) | [TODO.md](./TODO.md)
+
 ---
 
 ## 1. Vue d'ensemble

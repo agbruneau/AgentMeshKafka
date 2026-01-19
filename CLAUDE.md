@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**EDA-Lab** is an academic application for simulating interoperability in an enterprise ecosystem based on Event Driven Architecture (EDA). The project is in pre-development phase - see `PDR.MD` for complete specifications.
+**EDA-Lab** is an academic application for simulating interoperability in an enterprise ecosystem based on Event Driven Architecture (EDA). The project is in pre-development phase - see `PDR.md` for complete specifications.
 
 ## Tech Stack (Planned)
 
@@ -58,13 +58,14 @@ npm test
 ## Iterative Development
 
 MVP (Iteration 1) focuses on: Pub/Sub pattern, Bancaire domain only, basic observability, minimal Web UI.
-Subsequent iterations add: Event Sourcing, CQRS, Sagas, Chaos Engineering (see PDR.MD section 15).
+Subsequent iterations add: Event Sourcing, CQRS, Sagas, Chaos Engineering (see PDR.md section 15).
 
 ## Project Documentation
 
 | File | Description |
 |------|-------------|
-| `PDR.MD` | Product Definition Record - Complete specifications |
-| `PLAN.MD` | Implementation plan with 51 sub-steps |
-| `TODO.MD` | Detailed task checklist |
-| `CHANGELOG.MD` | Project changelog |
+| `README.md` | Entry point and overview |
+| `PDR.md` | Product Definition Record - Complete specifications |
+| `PLAN.md` | Implementation plan with 51 sub-steps |
+| `TODO.md` | Detailed task checklist |
+| `CHANGELOG.md` | Project changelog |

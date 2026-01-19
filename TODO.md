@@ -1,4 +1,6 @@
-# TODO.MD - Liste de tâches détaillée EDA-Lab
+# TODO.md - Liste de tâches détaillée EDA-Lab
+
+**Navigation :** [README.md](./README.md) | [PDR.md](./PDR.md) | [PLAN.md](./PLAN.md)
 
 ## Légende
 
@@ -31,7 +33,7 @@
 ## Étape 0.1 : Structure du projet et Docker Compose minimal
 
 ### 0.1.1 : Création de la structure de répertoires
-- [ ] Créer le répertoire racine `eda-lab/`
+- [ ] Créer le répertoire racine `eda-lab/` (monorepo root)
 - [ ] Créer `services/bancaire/`
 - [ ] Créer `services/simulator/`
 - [ ] Créer `services/gateway/`
