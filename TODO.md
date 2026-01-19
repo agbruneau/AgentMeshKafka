@@ -4,14 +4,14 @@
 
 | Phase | Progression | Statut |
 |-------|-------------|--------|
-| Phase 1 - Infrastructure | 0/15 | Non commencé |
+| Phase 1 - Infrastructure | **15/15** | **TERMINÉ** |
 | Phase 2 - Pub/Sub | 0/20 | Non commencé |
 | Phase 3 - Event Sourcing | 0/5 | Non commencé |
 | Phase 4 - CQRS | 0/6 | Non commencé |
 | Phase 5 - Saga | 0/6 | Non commencé |
 | Phase 6 - DLQ | 0/6 | Non commencé |
 | Phase 7 - Finalisation | 0/6 | Non commencé |
-| **Total** | **0/64** | |
+| **Total** | **15/64** | |
 
 ---
 
@@ -19,93 +19,93 @@
 
 ## Étape 1.1 : Structure du Projet
 
-- [ ] **1.1.1** Initialisation du module Go
-  - [ ] Créer go.mod avec le module github.com/[user]/kafka-eda-lab
-  - [ ] Créer l'arborescence cmd/ (quotation, souscription, reclamation, dashboard, simulator)
-  - [ ] Créer l'arborescence internal/ (kafka, models, observability, database)
-  - [ ] Créer les dossiers pkg/, schemas/, web/, docker/, docs/, tests/
-  - [ ] Créer cmd/dashboard/main.go minimal
-  - [ ] Créer Makefile de base (build, clean)
-  - [ ] Valider : `go build ./cmd/dashboard` et `go mod tidy`
+- [x] **1.1.1** Initialisation du module Go
+  - [x] Créer go.mod avec le module github.com/[user]/kafka-eda-lab
+  - [x] Créer l'arborescence cmd/ (quotation, souscription, reclamation, dashboard, simulator)
+  - [x] Créer l'arborescence internal/ (kafka, models, observability, database)
+  - [x] Créer les dossiers pkg/, schemas/, web/, docker/, docs/, tests/
+  - [x] Créer cmd/dashboard/main.go minimal
+  - [x] Créer Makefile de base (build, clean)
+  - [x] Valider : `go build ./cmd/dashboard` et `go mod tidy`
 
-- [ ] **1.1.2** Configuration du Makefile complet
-  - [ ] Commande `make up` (docker-compose up -d)
-  - [ ] Commande `make down` (docker-compose down)
-  - [ ] Commande `make reset` (down -v && up)
-  - [ ] Commande `make logs` (docker-compose logs -f)
-  - [ ] Commande `make status` (docker-compose ps)
-  - [ ] Commande `make build` (go build tous les services)
-  - [ ] Commande `make test` (go test ./...)
-  - [ ] Commande `make test-integration`
-  - [ ] Commande `make test-load`
-  - [ ] Commande `make dashboard` (ouvre localhost:8080)
-  - [ ] Commande `make grafana` (ouvre localhost:3000)
-  - [ ] Commande `make jaeger` (ouvre localhost:16686)
-  - [ ] Commande `make help` (liste des commandes)
-  - [ ] Ajouter .PHONY pour toutes les commandes
-  - [ ] Valider : `make help` affiche toutes les commandes
+- [x] **1.1.2** Configuration du Makefile complet
+  - [x] Commande `make up` (docker-compose up -d)
+  - [x] Commande `make down` (docker-compose down)
+  - [x] Commande `make reset` (down -v && up)
+  - [x] Commande `make logs` (docker-compose logs -f)
+  - [x] Commande `make status` (docker-compose ps)
+  - [x] Commande `make build` (go build tous les services)
+  - [x] Commande `make test` (go test ./...)
+  - [x] Commande `make test-integration`
+  - [x] Commande `make test-load`
+  - [x] Commande `make dashboard` (ouvre localhost:8080)
+  - [x] Commande `make grafana` (ouvre localhost:3000)
+  - [x] Commande `make jaeger` (ouvre localhost:16686)
+  - [x] Commande `make help` (liste des commandes)
+  - [x] Ajouter .PHONY pour toutes les commandes
+  - [x] Valider : `make help` affiche toutes les commandes
 
-- [ ] **1.1.3** Configuration Git et environnement
-  - [ ] Créer .gitignore (binaires, .db, .env, IDE, volumes)
-  - [ ] Créer .env.example avec toutes les variables
-  - [ ] Créer README.md initial (description, prérequis, démarrage rapide)
-  - [ ] Valider : fichiers ignorés correctement
+- [x] **1.1.3** Configuration Git et environnement
+  - [x] Créer .gitignore (binaires, .db, .env, IDE, volumes)
+  - [x] Créer .env.example avec toutes les variables
+  - [x] Créer README.md initial (description, prérequis, démarrage rapide)
+  - [x] Valider : fichiers ignorés correctement
 
 ## Étape 1.2 : Configuration Docker Kafka
 
-- [ ] **1.2.1** Docker Compose Kafka KRaft
-  - [ ] Créer docker-compose.yml
-  - [ ] Configurer service kafka (image apache/kafka:3.7.0)
-  - [ ] Variables KRaft (NODE_ID, PROCESS_ROLES, CONTROLLER_QUORUM_VOTERS)
-  - [ ] Port 9092 exposé
-  - [ ] Volume kafka-data
-  - [ ] Healthcheck configuré
+- [x] **1.2.1** Docker Compose Kafka KRaft
+  - [x] Créer docker-compose.yml
+  - [x] Configurer service kafka (image apache/kafka:3.7.0)
+  - [x] Variables KRaft (NODE_ID, PROCESS_ROLES, CONTROLLER_QUORUM_VOTERS)
+  - [x] Port 9092 exposé
+  - [x] Volume kafka-data
+  - [x] Healthcheck configuré
   - [ ] Valider : `docker-compose up -d kafka` démarre sans erreur
   - [ ] Valider : `kafka-topics.sh --list` fonctionne
 
-- [ ] **1.2.2** Ajout du Schema Registry
-  - [ ] Ajouter service schema-registry (confluentinc/cp-schema-registry:7.6.0)
-  - [ ] Port 8081 exposé
-  - [ ] Dépendance sur kafka
-  - [ ] Variables d'environnement configurées
-  - [ ] Healthcheck configuré
+- [x] **1.2.2** Ajout du Schema Registry
+  - [x] Ajouter service schema-registry (confluentinc/cp-schema-registry:7.6.0)
+  - [x] Port 8081 exposé
+  - [x] Dépendance sur kafka
+  - [x] Variables d'environnement configurées
+  - [x] Healthcheck configuré
   - [ ] Valider : `curl http://localhost:8081/subjects` retourne []
 
-- [ ] **1.2.3** Création des topics Kafka
-  - [ ] Créer docker/kafka/create-topics.sh
-  - [ ] Topic quotation.devis-genere (3 partitions)
-  - [ ] Topic quotation.devis-expire (3 partitions)
-  - [ ] Topic souscription.contrat-emis (3 partitions)
-  - [ ] Topic souscription.contrat-modifie (3 partitions)
-  - [ ] Topic souscription.contrat-resilie (3 partitions)
-  - [ ] Topic reclamation.sinistre-declare (3 partitions)
-  - [ ] Topic reclamation.sinistre-evalue (3 partitions)
-  - [ ] Topic reclamation.indemnisation-effectuee (3 partitions)
-  - [ ] Topic dlq.errors (1 partition)
-  - [ ] Ajouter service kafka-init dans docker-compose
-  - [ ] Ajouter `make topics` dans Makefile
+- [x] **1.2.3** Création des topics Kafka
+  - [x] Créer docker/kafka/create-topics.sh (via kafka-init service)
+  - [x] Topic quotation.devis-genere (3 partitions)
+  - [x] Topic quotation.devis-expire (3 partitions)
+  - [x] Topic souscription.contrat-emis (3 partitions)
+  - [x] Topic souscription.contrat-modifie (3 partitions)
+  - [x] Topic souscription.contrat-resilie (3 partitions)
+  - [x] Topic reclamation.sinistre-declare (3 partitions)
+  - [x] Topic reclamation.sinistre-evalue (3 partitions)
+  - [x] Topic reclamation.indemnisation-effectuee (3 partitions)
+  - [x] Topic dlq.errors (1 partition)
+  - [x] Ajouter service kafka-init dans docker-compose
+  - [x] Ajouter `make topics` dans Makefile
   - [ ] Valider : 9 topics créés
 
-- [ ] **1.2.4** Interface Kafka UI
-  - [ ] Ajouter service kafka-ui (provectuslabs/kafka-ui:latest)
-  - [ ] Port 8090 exposé
-  - [ ] Configuration cluster et schema registry
-  - [ ] Ajouter `make kafka-ui` dans Makefile
+- [x] **1.2.4** Interface Kafka UI
+  - [x] Ajouter service kafka-ui (provectuslabs/kafka-ui:latest)
+  - [x] Port 8090 exposé
+  - [x] Configuration cluster et schema registry
+  - [x] Ajouter `make kafka-ui` dans Makefile
   - [ ] Valider : http://localhost:8090 accessible
 
 ## Étape 1.3 : Stack d'Observabilité
 
-- [ ] **1.3.1** Configuration Prometheus
-  - [ ] Créer dossier docker/prometheus/
-  - [ ] Créer prometheus.yml avec scrape configs
-  - [ ] Ajouter service prometheus (prom/prometheus:v2.50.0)
-  - [ ] Port 9090 exposé
-  - [ ] Volume prometheus-data
+- [x] **1.3.1** Configuration Prometheus
+  - [x] Créer dossier docker/prometheus/
+  - [x] Créer prometheus.yml avec scrape configs
+  - [x] Ajouter service prometheus (prom/prometheus:v2.50.0)
+  - [x] Port 9090 exposé
+  - [x] Volume prometheus-data
   - [ ] Valider : http://localhost:9090 accessible
 
-- [ ] **1.3.2** Configuration Grafana
-  - [ ] Créer docker/grafana/provisioning/datasources/
-  - [ ] Créer datasources.yml (Prometheus + Loki)
+- [x] **1.3.2** Configuration Grafana
+  - [x] Créer docker/grafana/provisioning/datasources/
+  - [x] Créer datasources.yml (Prometheus + Loki)
   - [ ] Créer grafana.ini (auth anonyme)
   - [ ] Ajouter service grafana (grafana/grafana:10.3.0)
   - [ ] Port 3000 exposé
