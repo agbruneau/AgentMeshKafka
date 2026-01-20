@@ -12,7 +12,21 @@ Ce document définit le plan d'implémentation détaillé du projet **EDA-Lab** 
 
 ---
 
-## Structure des phases
+## Terminologie et correspondance
+
+> **Relation avec PDR.MD:**
+> - Ce document détaille les **Phases techniques (0-8)** pour construire le MVP
+> - Le MVP correspond à l'**Itération 1 (Pub/Sub)** du PDR.MD
+> - Les itérations 2-8 du PDR.MD (Event Sourcing, CQRS, etc.) seront documentées dans des plans séparés
+
+```
+PDR.MD: Itération 1 (MVP Pub/Sub) = Ce document: Phases 0-8
+PDR.MD: Itération 2+ = Plans futurs (PLAN-PHASE2.MD, etc.)
+```
+
+---
+
+## Structure des phases techniques
 
 | Phase | Nom | Objectif |
 |-------|-----|----------|

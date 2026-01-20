@@ -70,7 +70,15 @@ Les trois domaines partagent des événements selon les flux suivants :
 
 ## 3. Catalogue des patrons EDA
 
-### 3.1 Ordre d'implémentation
+### 3.1 Terminologie
+
+> **Note importante**: Ce projet utilise deux systèmes de numérotation:
+> - **Itérations (1-8)**: Correspondent aux **patrons EDA** à implémenter (ce document)
+> - **Phases techniques (0-8)**: Correspondent aux **étapes de construction** du MVP (voir PLAN.MD)
+>
+> L'**Itération 1 (MVP)** est construite via les **Phases techniques 0-8** du PLAN.MD.
+
+### 3.2 Ordre d'implémentation des patrons
 
 | Itération | Patron | Description |
 |-----------|--------|-------------|

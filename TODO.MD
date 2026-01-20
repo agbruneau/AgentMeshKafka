@@ -9,20 +9,30 @@
 
 ---
 
+## Terminologie
+
+> Ce document suit les **Phases techniques (0-8)** du PLAN.MD pour construire le MVP.
+> Le MVP correspond à l'**Itération 1 (Pub/Sub)** du PDR.MD.
+
+---
+
 ## Progression globale
 
-| Phase | Nom | Progression |
-|-------|-----|-------------|
-| 0 | Infrastructure | **6/6** ✓ |
-| 1 | Fondations Go | **9/9** ✓ |
-| 2 | Schémas Avro | **3/3** ✓ |
-| 3 | Service Simulator | **6/6** ✓ |
-| 4 | Service Bancaire | **6/6** ✓ |
-| 5 | Service Gateway | **3/3** ✓ |
-| 6 | Observabilité | **5/5** ✓ |
-| 7 | Web UI | **7/7** ✓ |
-| 8 | Intégration finale | **6/6** ✓ |
-| **TOTAL** | **MVP** | **51/51** ✓ |
+| Phase | Nom | Code écrit | Tests exécutés | Statut |
+|-------|-----|------------|----------------|--------|
+| 0 | Infrastructure | ✓ | ⏳ À valider | Code prêt |
+| 1 | Fondations Go | ⏳ En cours | ❌ Non | En développement |
+| 2 | Schémas Avro | ✓ | ⏳ À valider | Code prêt |
+| 3 | Service Simulator | ✓ | ⏳ À valider | Code prêt |
+| 4 | Service Bancaire | ✓ | ⏳ À valider | Code prêt |
+| 5 | Service Gateway | ✓ | ⏳ À valider | Code prêt |
+| 6 | Observabilité | ✓ | ⏳ À valider | Code prêt |
+| 7 | Web UI | ✓ | ⏳ À valider | Code prêt |
+| 8 | Intégration finale | ✓ | ⏳ À valider | Code prêt |
+| **TOTAL** | **MVP** | **~90%** | **~10%** | **À valider** |
+
+> **Note**: Le code a été généré mais les tests d'intégration et validations n'ont pas été exécutés.
+> Prochaine étape: Exécuter `make infra-up` puis `make test-infra` pour valider.
 
 ---
 
@@ -910,34 +920,37 @@
 
 ---
 
-# Checklist de validation MVP ✓
+# Checklist de validation MVP
 
-## Infrastructure ✓
-- [x] Kafka KRaft fonctionne
-- [x] Schema Registry fonctionne
-- [x] PostgreSQL fonctionne
-- [x] Prometheus fonctionne
-- [x] Grafana fonctionne
-- [x] Tous les services démarrent
+## Infrastructure (À valider)
+- [ ] Kafka KRaft fonctionne (`make infra-up && make test-infra`)
+- [ ] Schema Registry fonctionne
+- [ ] PostgreSQL fonctionne
+- [ ] Prometheus fonctionne
+- [ ] Grafana fonctionne
+- [ ] Tous les services démarrent (`make services-up`)
 
-## Fonctionnalités ✓
-- [x] Simulation démarre/arrête
-- [x] Événements générés automatiquement
-- [x] Événements consommés par Bancaire
-- [x] Comptes créés en base
-- [x] API REST fonctionnelle
-- [x] WebSocket temps réel fonctionne
-- [x] UI affiche les flux
-- [x] Dashboards Grafana affichent métriques
+## Fonctionnalités (À valider)
+- [ ] Simulation démarre/arrête
+- [ ] Événements générés automatiquement
+- [ ] Événements consommés par Bancaire
+- [ ] Comptes créés en base
+- [ ] API REST fonctionnelle
+- [ ] WebSocket temps réel fonctionne
+- [ ] UI affiche les flux
+- [ ] Dashboards Grafana affichent métriques
 
-## Tests ✓
-- [x] Tests unitaires créés
-- [x] Tests d'intégration créés
-- [x] Tests E2E créés
-- [x] Tests de performance créés
+## Tests
+- [x] Tests unitaires créés (code)
+- [ ] Tests unitaires passent (`make test-unit`)
+- [x] Tests d'intégration créés (code)
+- [ ] Tests d'intégration passent (`make test-integration`)
+- [x] Tests E2E créés (code)
+- [ ] Tests E2E passent (`make test-e2e`)
 - [x] Script validate-mvp.sh créé
+- [ ] Script validate-mvp.sh passe
 
-## Documentation ✓
+## Documentation
 - [x] README complet
 - [x] Documentation architecture
 - [x] ADR documentés (5 ADRs)
@@ -945,26 +958,32 @@
 
 ---
 
-**Dernière mise à jour :** 2026-01-19
-**Progression totale :** 51/51 sous-étapes (100%) ✓
+**Dernière mise à jour :** 2026-01-20
+**Progression totale :** Code ~90% écrit | Tests ~10% validés
 
-## MVP COMPLETE!
+## PROCHAINES ÉTAPES
 
-Le MVP EDA-Lab est maintenant complet. Pour démarrer:
+Le code du MVP EDA-Lab est écrit mais nécessite validation. Étapes pour finaliser:
 
 ```bash
 # 1. Démarrer l'infrastructure
 make infra-up
 
-# 2. Attendre que l'infrastructure soit prête
+# 2. Valider l'infrastructure
 make test-infra
 
-# 3. Démarrer les services (si configurés dans docker-compose)
+# 3. Exécuter les tests unitaires
+make test-unit
+
+# 4. Exécuter les tests d'intégration
+make test-integration
+
+# 5. Démarrer les services
 make services-up
 
-# 4. Ouvrir l'interface web
-# http://localhost:5173 (dev) ou http://localhost:3000 (prod)
-
-# 5. Valider le MVP complet
+# 6. Valider le MVP complet
 ./scripts/validate-mvp.sh
 ```
+
+> **Attention**: Plusieurs tâches `[ ]` dans les phases indiquent des tests/validations non exécutés.
+> Parcourez chaque phase et cochez les tâches au fur et à mesure de leur validation.
