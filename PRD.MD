@@ -154,6 +154,18 @@ Les trois domaines partagent des événements selon les flux suivants :
 | **Frontend** | React + React Flow | Écosystème mature, visualisation de flux interactive |
 | **Conteneurisation** | Docker Compose | Simplicité, environnement local tout-en-un |
 
+### 5.1.1 Convention Avro Namespace
+
+**Format standard**: `com.edalab.<domaine>.events`
+
+| Domaine | Namespace Avro |
+|---------|----------------|
+| Bancaire | `com.edalab.bancaire.events` |
+| Assurance Personne | `com.edalab.assurance.personne.events` |
+| Assurance Dommage | `com.edalab.assurance.dommage.events` |
+| Client 360 | `com.edalab.client.events` |
+| Système | `com.edalab.system.events` |
+
 ### 5.2 Stack d'observabilité
 
 | Fonction | Outil | Description |
@@ -556,19 +568,26 @@ eda-lab/
 
 ## 15. Roadmap des itérations
 
-### 15.1 MVP (Itération 1)
+### 15.1 MVP (Itération 1) - Scope détaillé
 
-| Composant | Statut |
-|-----------|--------|
-| Patron Pub/Sub | ✅ Inclus |
-| Domaine Bancaire (3-4 événements) | ✅ Inclus |
-| Service Simulator | ✅ Inclus |
-| Infrastructure Kafka + Schema Registry | ✅ Inclus |
-| Observabilité de base (Prometheus + Grafana) | ✅ Inclus |
-| _Note: Jaeger et Loki prévus pour Itération 2_ | |
-| Web UI minimale (Start/Stop + React Flow) | ✅ Inclus |
-| Tests unitaires + intégration | ✅ Inclus |
-| Documentation de base | ✅ Inclus |
+**Objectif**: Infrastructure fonctionnelle avec flux Pub/Sub complet sur le domaine bancaire
+
+| Composant | Scope MVP | Critère de validation |
+|-----------|-----------|----------------------|
+| Infrastructure Docker | Kafka KRaft + Schema Registry + PostgreSQL | `make test-infra` passe |
+| Schémas Avro | 4 événements bancaires (CompteOuvert, DepotEffectue, RetraitEffectue, VirementEmis) | Schémas enregistrés dans Registry |
+| Service Simulator | Génère des événements à débit configurable | API `/simulation/start` fonctionne |
+| Service Bancaire | Consomme et persiste les événements | Données visibles en base |
+| Service Gateway | Proxy REST + WebSocket temps réel | WebSocket diffuse les événements |
+| Observabilité | Prometheus + Grafana (métriques de base) | Dashboard affiche messages/sec |
+| Web UI | Start/Stop + visualisation React Flow | Interface utilisable |
+| Tests | Unit + Integration + E2E | `make test-e2e` passe |
+
+**Hors scope MVP (Itération 2+)**:
+- Jaeger (traçage distribué)
+- Loki (logs centralisés)
+- Domaines Assurance
+- Event Sourcing, CQRS, Sagas
 
 ### 15.2 Itération 2
 

@@ -272,16 +272,77 @@ Implémente l'Itération [N] du projet EDA-Lab selon le PRD.MD et AGENT.MD
 
 ---
 
-## 9. Gestion des Erreurs
+## 9. Gestion des Erreurs et Récupération
 
-Si l'agent rencontre un problème:
+### 9.1 Diagnostic et résolution
 
-1. **Dépendance manquante**: Installer via `go get` ou `npm install`
-2. **Conflit de schéma**: Vérifier la compatibilité Avro
-3. **Erreur Docker**: Vérifier les logs avec `docker-compose logs`
-4. **Test en échec**: Corriger avant de continuer
+| Problème | Diagnostic | Résolution |
+|----------|------------|------------|
+| **Dépendance manquante** | `go mod tidy` échoue | `go get <module>` ou `npm install` |
+| **Conflit de schéma** | Erreur Schema Registry | Vérifier compatibilité, supprimer version |
+| **Erreur Docker** | Container unhealthy | `docker-compose logs <service>` |
+| **Test en échec** | Assertion échoue | Corriger code, pas contourner test |
+| **Port occupé** | Address already in use | `lsof -i :<port>` puis kill process |
+| **Kafka non prêt** | Connection refused | Attendre healthcheck, `make infra-logs` |
+| **PostgreSQL erreur** | Connection error | Vérifier credentials, `make infra-clean` |
+
+### 9.2 Protocole de récupération après échec
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ ÉTAPE 1: IDENTIFIER LA PHASE EN ÉCHEC                       │
+│ - Consulter le tableau de progression dans PLAN.MD          │
+│ - Identifier le CHECKPOINT non validé                       │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│ ÉTAPE 2: NETTOYER L'ENVIRONNEMENT                           │
+│ - make infra-clean (si erreur infra)                        │
+│ - go clean -testcache (si tests flaky)                      │
+│ - rm -rf node_modules && npm install (si erreur UI)         │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│ ÉTAPE 3: REPRENDRE À LA SOUS-ÉTAPE EN ÉCHEC                 │
+│ - Relire le prompt PLAN.MD de la sous-étape                 │
+│ - Exécuter en mode TDD strict (RED → GREEN → REFACTOR)      │
+│ - Valider le CHECKPOINT avant de continuer                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 9.3 Commandes de reprise
+
+```bash
+# Reprendre Phase N après échec
+./scripts/validate-phase-N.sh    # Identifier ce qui échoue
+make infra-clean && make infra-up # Redémarrer infra si nécessaire
+# Puis reprendre la sous-étape spécifique
+
+# Reprendre après erreur de test
+go test ./... -v 2>&1 | head -50  # Voir les 50 premières lignes d'erreur
+# Corriger puis relancer
+
+# Vérifier l'état global
+make status                       # Affiche l'état de tous les composants
+```
+
+---
+
+## 10. Skills Claude Code
+
+L'agent peut utiliser les Skills suivants pour automatiser le workflow:
+
+| Skill | Description | Usage |
+|-------|-------------|-------|
+| `/phase N` | Implémente la Phase N du PLAN.MD | `Implémente la Phase 0` |
+| `/validate` | Valide le checkpoint de la phase courante | Après chaque phase |
+| `/status` | Affiche l'état de progression du projet | À tout moment |
+| `/recover` | Diagnostic et reprise après échec | En cas d'erreur |
 
 ---
 
 **Document créé le 2026-01-20**
-**Compatible avec: PRD.MD v1.0**
+**Dernière mise à jour: 2026-01-20**
+**Compatible avec: PRD.MD v1.0, PLAN.MD v1.1**

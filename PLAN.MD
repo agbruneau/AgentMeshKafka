@@ -252,6 +252,40 @@ Teste toutes les commandes make pour vérifier qu'elles fonctionnent correctemen
 
 **Contexte :** Créer un test Go qui valide toute l'infrastructure.
 
+---
+
+## CHECKPOINT PHASE 0
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 1 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 0
+
+```bash
+# Exécuter ces commandes dans l'ordre:
+make infra-up                    # Doit démarrer sans erreur
+make test-infra                  # Tous les tests doivent passer
+```
+
+### Checklist Phase 0
+
+- [ ] `docker-compose up -d` démarre Kafka, Schema Registry, PostgreSQL
+- [ ] Kafka healthcheck passe (`docker-compose ps` montre "healthy")
+- [ ] Schema Registry accessible sur `http://localhost:8081`
+- [ ] PostgreSQL accessible avec psql ou client
+- [ ] Topics Kafka créés (`make kafka-topics` liste les topics)
+- [ ] Script `test-schema-registry.sh` passe
+- [ ] Script `test-postgres.sh` passe
+- [ ] Test Go `infrastructure_test.go` passe
+
+### En cas d'échec
+
+1. `make infra-logs` pour voir les erreurs
+2. `make infra-clean` pour nettoyer
+3. Vérifier les prérequis (Docker Desktop, WSL2, ressources)
+4. `make infra-up` pour redémarrer
+
+---
+
 ```text
 PROMPT CLAUDE CODE - Étape 0.2.1
 
@@ -715,6 +749,35 @@ Lancer `go test ./pkg/observability/...` pour tout valider.
 
 ---
 
+---
+
+## CHECKPOINT PHASE 1
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 2 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 1
+
+```bash
+# Tous les packages doivent compiler et passer leurs tests:
+go test ./pkg/config/...
+go test ./pkg/kafka/...
+go test ./pkg/database/...
+go test ./pkg/observability/...
+go test ./pkg/kafka/... -tags=integration  # Avec infra-up
+```
+
+### Checklist Phase 1
+
+- [ ] pkg/config: LoadFromEnv et Validate fonctionnent
+- [ ] pkg/kafka: Producer et Consumer compilent
+- [ ] pkg/database: DBPool se connecte à PostgreSQL
+- [ ] pkg/observability: Métriques exposées sur /metrics
+- [ ] Tests unitaires passent (`go test ./pkg/...`)
+- [ ] Tests d'intégration Kafka passent
+- [ ] go.work configure le workspace correctement
+
+---
+
 # PHASE 2 : Schémas Avro
 
 ## Objectif
@@ -886,6 +949,30 @@ Tests TDD :
 
 Les tests doivent sérialiser/désérialiser avec de vraies valeurs.
 ```
+
+---
+
+---
+
+## CHECKPOINT PHASE 2
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 3 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 2
+
+```bash
+./scripts/register-schemas.sh    # Enregistre tous les schémas
+./scripts/validate-schemas.sh    # Vérifie l'enregistrement
+go test ./pkg/events/...         # Tests de sérialisation
+```
+
+### Checklist Phase 2
+
+- [ ] Schémas .avsc créés dans schemas/bancaire/
+- [ ] Tous les schémas enregistrés dans Schema Registry
+- [ ] Types Go générés dans pkg/events/
+- [ ] Tests de sérialisation/désérialisation passent
+- [ ] Namespace = `com.edalab.bancaire.events`
 
 ---
 
@@ -1175,6 +1262,33 @@ Test d'intégration complet :
 
 Ajoute le service Simulator au docker-compose.yml dans un profil "services".
 ```
+
+---
+
+---
+
+## CHECKPOINT PHASE 3
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 4 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 3
+
+```bash
+go test ./services/simulator/...                    # Tests unitaires
+go test ./services/simulator/... -tags=integration  # Tests intégration
+curl http://localhost:8080/api/v1/simulation/status # API répond
+```
+
+### Checklist Phase 3
+
+- [ ] Service Simulator compile et démarre
+- [ ] API REST `/simulation/start` fonctionne
+- [ ] API REST `/simulation/stop` fonctionne
+- [ ] Événements produits dans Kafka (visible via consumer)
+- [ ] FakeDataGenerator génère des données réalistes
+- [ ] Dockerfile construit l'image
+- [ ] Tests unitaires passent
+- [ ] Tests d'intégration passent
 
 ---
 
@@ -1519,6 +1633,34 @@ Ajoute une target Makefile : make test-e2e
 
 ---
 
+---
+
+## CHECKPOINT PHASE 4
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 5 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 4
+
+```bash
+go test ./services/bancaire/...                    # Tests unitaires
+go test ./services/bancaire/... -tags=integration  # Tests intégration
+go test ./tests/integration/... -tags=integration  # Test E2E Simulator→Bancaire
+```
+
+### Checklist Phase 4
+
+- [ ] Service Bancaire compile et démarre
+- [ ] Migrations PostgreSQL exécutées
+- [ ] Consumer Kafka consomme les événements
+- [ ] Comptes persistés en base de données
+- [ ] Transactions persistées en base de données
+- [ ] API REST `/comptes/:id` fonctionne
+- [ ] Tests unitaires passent
+- [ ] Tests d'intégration passent
+- [ ] **Test E2E**: Simulator produit → Bancaire consomme → Données en base
+
+---
+
 # PHASE 5 : Service Gateway
 
 ## Objectif
@@ -1690,6 +1832,34 @@ Tests d'intégration :
    - Connecte 3 clients
    - Vérifie que tous reçoivent les broadcasts
 ```
+
+---
+
+---
+
+## CHECKPOINT PHASE 5
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 6 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 5
+
+```bash
+go test ./services/gateway/...                     # Tests unitaires
+go test ./services/gateway/... -tags=integration   # Tests intégration
+# Test WebSocket manuel avec wscat ou script
+```
+
+### Checklist Phase 5
+
+- [ ] Service Gateway compile et démarre
+- [ ] Proxy REST vers Simulator fonctionne
+- [ ] Proxy REST vers Bancaire fonctionne
+- [ ] WebSocket Hub accepte les connexions
+- [ ] Subscribe/Unsubscribe fonctionnent
+- [ ] KafkaStreamer broadcast les événements
+- [ ] Client WebSocket reçoit les événements en temps réel
+- [ ] Tests unitaires passent
+- [ ] Tests d'intégration passent
 
 ---
 
@@ -1890,6 +2060,31 @@ Row 5 : Ressources
 Variables :
 - $service : Sélection du service
 ```
+
+---
+
+---
+
+## CHECKPOINT PHASE 6
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 7 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 6
+
+```bash
+curl http://localhost:9090/api/v1/targets           # Prometheus targets
+curl http://localhost:3000/api/health               # Grafana health
+./scripts/test-prometheus.sh                        # Script de validation
+```
+
+### Checklist Phase 6
+
+- [ ] Prometheus démarre et scrape les services
+- [ ] Grafana démarre et se connecte à Prometheus
+- [ ] Dashboard Kafka Overview affiche les métriques
+- [ ] Dashboard Services Overview affiche les métriques
+- [ ] Métriques des services visibles (messages/sec, latence)
+- [ ] Alertes configurées (optionnel MVP)
 
 ---
 
@@ -2225,6 +2420,34 @@ Tests E2E avec vraie infrastructure :
 Fichier : web-ui/playwright.config.ts
 Configuration pour utiliser l'infrastructure Docker Compose.
 ```
+
+---
+
+---
+
+## CHECKPOINT PHASE 7
+
+> **ARRÊT OBLIGATOIRE** : Ne pas passer à la Phase 8 tant que ce checkpoint n'est pas validé.
+
+### Critères de validation Phase 7
+
+```bash
+cd web-ui && npm test                              # Tests React
+cd web-ui && npm run build                         # Build production
+npx playwright test                                # Tests E2E UI
+```
+
+### Checklist Phase 7
+
+- [ ] Application React démarre (`npm run dev`)
+- [ ] SimulationControls Start/Stop fonctionnent
+- [ ] FlowVisualization affiche les nodes et edges
+- [ ] Animation temps réel lors de la production d'événements
+- [ ] MetricsDashboard affiche les compteurs
+- [ ] WebSocket se connecte au Gateway
+- [ ] Build production réussit
+- [ ] Tests unitaires React passent
+- [ ] Tests E2E Playwright passent
 
 ---
 
@@ -2606,22 +2829,22 @@ consumer.Consume(ctx, handler.Route)
 
 | Phase | Nom | Sous-étapes | Code | Tests | Statut |
 |-------|-----|-------------|------|-------|--------|
-| 0 | Infrastructure | 6 | ✓ | ⏳ | À valider |
-| 1 | Fondations Go | 9 | ⏳ | ❌ | En cours |
-| 2 | Schémas Avro | 3 | ✓ | ⏳ | À valider |
-| 3 | Simulator | 6 | ✓ | ⏳ | À valider |
-| 4 | Bancaire | 6 | ✓ | ⏳ | À valider |
-| 5 | Gateway | 3 | ✓ | ⏳ | À valider |
-| 6 | Observabilité | 5 | ✓ | ⏳ | À valider |
-| 7 | Web UI | 7 | ✓ | ⏳ | À valider |
-| 8 | Intégration | 6 | ✓ | ⏳ | À valider |
-| **TOTAL** | **MVP** | **51** | **~90%** | **~10%** | **À valider** |
+| 0 | Infrastructure | 6 | ❌ | ❌ | Non commencé |
+| 1 | Fondations Go | 9 | ❌ | ❌ | Non commencé |
+| 2 | Schémas Avro | 3 | ❌ | ❌ | Non commencé |
+| 3 | Simulator | 6 | ❌ | ❌ | Non commencé |
+| 4 | Bancaire | 6 | ❌ | ❌ | Non commencé |
+| 5 | Gateway | 3 | ❌ | ❌ | Non commencé |
+| 6 | Observabilité | 5 | ❌ | ❌ | Non commencé |
+| 7 | Web UI | 7 | ❌ | ❌ | Non commencé |
+| 8 | Intégration | 6 | ❌ | ❌ | Non commencé |
+| **TOTAL** | **MVP** | **51** | **0%** | **0%** | **Non commencé** |
 
 ### Légende
-- ✓ = Complété
-- ⏳ = En attente de validation
+- ✓ = Complété et validé
+- ⏳ = En cours
 - ❌ = Non commencé
-- 🔄 = En cours
+- 🔄 = En correction (échec validation)
 
 ### Checklist de validation MVP
 
