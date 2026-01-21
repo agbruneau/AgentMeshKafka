@@ -1,294 +1,6 @@
-# Suivi de Progression - Interop Learning
+# Backlog - Interop Learning
 
-## Vue d'ensemble
-Application d'apprentissage de l'interopérabilité en écosystème d'entreprise (Assurance Dommage)
-
----
-
-## Phase 1 - Fondations
-
-### 1.1 Setup projet et architecture de base
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 1.1.1 | Créer la structure de dossiers du projet | `test_project_structure_exists()` - Vérifier que tous les dossiers requis existent | [ ] |
-| 1.1.2 | Créer `requirements.txt` avec les dépendances | `test_requirements_file_valid()` - Vérifier syntaxe et packages installables | [ ] |
-| 1.1.3 | Créer `run.py` point d'entrée | `test_run_script_launches_server()` - Serveur démarre sans erreur | [ ] |
-| 1.1.4 | Créer `install.bat` et `run.bat` | `test_batch_scripts_syntax()` - Scripts exécutables sur Windows | [ ] |
-
-### 1.2 Infrastructure Backend
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 1.2.1 | Créer `app/main.py` avec FastAPI | `test_fastapi_app_starts()` - Application démarre et répond sur `/` | [ ] |
-| 1.2.2 | Créer `app/config.py` | `test_config_values_loaded()` - Constantes accessibles | [ ] |
-| 1.2.3 | Configurer SQLite avec schéma initial | `test_database_tables_created()` - Tables créées correctement | [ ] |
-| 1.2.4 | Implémenter système SSE pour temps réel | `test_sse_connection()` - Connexion SSE établie et messages reçus | [ ] |
-
-### 1.3 Infrastructure Frontend
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 1.3.1 | Créer template `base.html` avec Tailwind | `test_base_template_renders()` - Template rendu sans erreur | [ ] |
-| 1.3.2 | Intégrer HTMX | `test_htmx_loaded()` - HTMX chargé et fonctionnel | [ ] |
-| 1.3.3 | Configurer thème sombre | `test_dark_theme_applied()` - Variables CSS dark theme présentes | [ ] |
-| 1.3.4 | Implémenter sidebar navigation | `test_sidebar_navigation()` - Navigation entre sections fonctionne | [ ] |
-
-### 1.4 Système de navigation et progression
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 1.4.1 | API `GET /api/progress` | `test_get_progress()` - Retourne progression globale | [ ] |
-| 1.4.2 | API `GET /api/theory/modules` | `test_get_modules_list()` - Liste tous les modules | [ ] |
-| 1.4.3 | API `POST /api/theory/modules/{id}/complete` | `test_mark_module_complete()` - Marque module comme complété | [ ] |
-| 1.4.4 | Breadcrumb dynamique | `test_breadcrumb_updates()` - Chemin mis à jour selon navigation | [ ] |
-
-### 1.5 Module 1 - Introduction à l'Interopérabilité
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 1.5.1 | Contenu markdown section 1.1 | `test_module1_content_renders()` - Markdown rendu en HTML | [ ] |
-| 1.5.2 | Contenu markdown sections 1.2-1.4 | `test_module1_sections_complete()` - Toutes sections présentes | [ ] |
-| 1.5.3 | Diagramme interactif 3 piliers | `test_module1_diagram_interactive()` - Survol affiche détails | [ ] |
-| 1.5.4 | Sandbox: Explorer l'écosystème | `test_sandbox_intro_scenario()` - Scénario d'exploration fonctionne | [ ] |
-
-### 1.6 Module 2 - Domaine Métier Assurance
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 1.6.1 | Contenu processus métier | `test_module2_processes_content()` - Quote→Policy→Claim→Billing expliqué | [ ] |
-| 1.6.2 | Schéma entités et relations | `test_module2_entity_diagram()` - Diagramme ER interactif | [ ] |
-| 1.6.3 | Description systèmes typiques | `test_module2_systems_described()` - 8 systèmes mock documentés | [ ] |
-| 1.6.4 | Sandbox: Cartographie des flux | `test_sandbox_mapping_scenario()` - Flux métier visualisables | [ ] |
-
----
-
-## Phase 2 - Pilier Applications 🔗
-
-### 2.1 Services Mock Assurance
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 2.1.1 | `mocks/quote_engine.py` | `test_quote_engine_crud()` - POST/GET quotes fonctionnel | [ ] |
-| 2.1.2 | `mocks/policy_admin.py` | `test_policy_admin_crud()` - CRUD policies complet | [ ] |
-| 2.1.3 | `mocks/claims.py` | `test_claims_crud()` - POST/PUT claims fonctionnel | [ ] |
-| 2.1.4 | `mocks/billing.py` | `test_billing_crud()` - POST/GET invoices fonctionnel | [ ] |
-| 2.1.5 | `mocks/customer_hub.py` | `test_customer_hub_crud()` - CRUD customers complet | [ ] |
-| 2.1.6 | `mocks/document_mgmt.py` | `test_document_mgmt()` - POST/GET documents | [ ] |
-| 2.1.7 | `mocks/notifications.py` | `test_notifications()` - POST notifications | [ ] |
-| 2.1.8 | `mocks/external_rating.py` | `test_external_rating()` - GET rates | [ ] |
-| 2.1.9 | Données mock fixes (JSON) | `test_mock_data_loaded()` - Customers, policies, claims chargés | [ ] |
-
-### 2.2 Module 3 - Design d'API REST
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 2.2.1 | Contenu Richardson Maturity Model | `test_module3_rmm_content()` - 4 niveaux expliqués | [ ] |
-| 2.2.2 | Contenu design ressources | `test_module3_resources_content()` - Nouns vs Verbs | [ ] |
-| 2.2.3 | Contenu versioning API | `test_module3_versioning_content()` - Stratégies documentées | [ ] |
-| 2.2.4 | Documentation OpenAPI intégrée | `test_module3_openapi()` - Spec OpenAPI affichable | [ ] |
-| 2.2.5 | Sandbox APP-01: Créer API Quote Engine | `test_sandbox_app01()` - Scénario 6-10 étapes complet | [ ] |
-
-### 2.3 Module 4 - API Gateway
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 2.3.1 | `integration/applications/gateway.py` | `test_gateway_routing()` - Routing vers services mock | [ ] |
-| 2.3.2 | Contenu rôle API Gateway | `test_module4_gateway_content()` - Responsabilités expliquées | [ ] |
-| 2.3.3 | Contenu rate limiting | `test_module4_ratelimit_content()` - Throttling expliqué | [ ] |
-| 2.3.4 | Contenu BFF | `test_module4_bff_content()` - Backend for Frontend | [ ] |
-| 2.3.5 | `integration/applications/bff.py` | `test_bff_implementation()` - BFF mobile vs courtier | [ ] |
-| 2.3.6 | Sandbox APP-02: Gateway multi-partenaires | `test_sandbox_app02()` - Routing et rate limiting | [ ] |
-| 2.3.7 | Sandbox APP-03: BFF Mobile vs Portail | `test_sandbox_app03()` - Adaptation par canal | [ ] |
-
-### 2.4 Module 5 - Patterns Avancés Applications
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 2.4.1 | `integration/applications/composition.py` | `test_api_composition()` - Agrégation multi-sources | [ ] |
-| 2.4.2 | `integration/applications/acl.py` | `test_acl_implementation()` - Anti-Corruption Layer | [ ] |
-| 2.4.3 | Contenu API Composition | `test_module5_composition_content()` - Agrégation expliquée | [ ] |
-| 2.4.4 | Contenu Strangler Fig | `test_module5_strangler_content()` - Migration progressive | [ ] |
-| 2.4.5 | Contenu Service Mesh intro | `test_module5_mesh_content()` - Concepts de base | [ ] |
-| 2.4.6 | Sandbox APP-04: Vue 360° client | `test_sandbox_app04()` - Composition multi-sources | [ ] |
-| 2.4.7 | Sandbox APP-05: Migration PAS legacy | `test_sandbox_app05()` - Strangler Fig + ACL | [ ] |
-
----
-
-## Phase 3 - Pilier Événements ⚡
-
-### 3.1 Infrastructure Messaging
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 3.1.1 | `integration/events/message_queue.py` | `test_message_queue_send_receive()` - Point-à-point fonctionnel | [ ] |
-| 3.1.2 | `integration/events/pubsub.py` | `test_pubsub_multi_consumer()` - Multi-consommateurs | [ ] |
-| 3.1.3 | Simulation broker in-memory | `test_broker_simulation()` - Messages transitent correctement | [ ] |
-
-### 3.2 Visualiseur de flux
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 3.2.1 | `static/js/flow-visualizer.js` D3.js | `test_flow_visualizer_renders()` - SVG généré | [ ] |
-| 3.2.2 | Animation particules sur connexions | `test_flow_animations()` - Particules animées | [ ] |
-| 3.2.3 | Zoom et pan | `test_flow_zoom_pan()` - Interactions souris | [ ] |
-| 3.2.4 | Timeline replay | `test_flow_timeline()` - Replay animé fonctionne | [ ] |
-
-### 3.3 Module 6 - Fondamentaux Messaging
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 3.3.1 | Contenu sync vs async | `test_module6_sync_async()` - Critères de choix | [ ] |
-| 3.3.2 | Contenu Queue vs Topic | `test_module6_queue_topic()` - Différences expliquées | [ ] |
-| 3.3.3 | Contenu garanties livraison | `test_module6_delivery()` - At-least-once, exactly-once | [ ] |
-| 3.3.4 | Contenu idempotence | `test_module6_idempotence()` - Concept et implémentation | [ ] |
-| 3.3.5 | Sandbox EVT-01: Pub/Sub PolicyCreated | `test_sandbox_evt01()` - Publication/souscription basique | [ ] |
-| 3.3.6 | Sandbox EVT-02: Queue traitement claims | `test_sandbox_evt02()` - Point-à-point, competing consumers | [ ] |
-
-### 3.4 Module 7 - Architecture Event-Driven
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 3.4.1 | `integration/events/event_store.py` | `test_event_store()` - Stockage et replay événements | [ ] |
-| 3.4.2 | `integration/events/cqrs.py` | `test_cqrs_separation()` - Modèles lecture/écriture | [ ] |
-| 3.4.3 | Contenu événements métier vs techniques | `test_module7_event_types()` - Taxonomie | [ ] |
-| 3.4.4 | Contenu Event Sourcing | `test_module7_sourcing()` - État comme séquence | [ ] |
-| 3.4.5 | Contenu CQRS | `test_module7_cqrs()` - Séparation commande/requête | [ ] |
-| 3.4.6 | Sandbox EVT-03: Event Sourcing police | `test_sandbox_evt03()` - Reconstruction état, replay | [ ] |
-| 3.4.7 | Sandbox EVT-05: CQRS reporting | `test_sandbox_evt05()` - Séparation modèles | [ ] |
-
-### 3.5 Module 8 - Saga et Transactions
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 3.5.1 | `integration/events/saga.py` | `test_saga_orchestration()` - Workflow multi-étapes | [ ] |
-| 3.5.2 | `integration/events/outbox.py` | `test_outbox_pattern()` - Atomicité DB + événement | [ ] |
-| 3.5.3 | Contenu transactions distribuées | `test_module8_distributed()` - Problématique | [ ] |
-| 3.5.4 | Contenu Saga pattern | `test_module8_saga()` - Orchestration vs choreography | [ ] |
-| 3.5.5 | Contenu compensation et rollback | `test_module8_compensation()` - Stratégies | [ ] |
-| 3.5.6 | Sandbox EVT-04: Saga souscription | `test_sandbox_evt04()` - Transactions, compensation | [ ] |
-| 3.5.7 | Sandbox EVT-06: Outbox pattern | `test_sandbox_evt06()` - Fiabilité atomique | [ ] |
-| 3.5.8 | Sandbox EVT-07: Dead Letter handling | `test_sandbox_evt07()` - Gestion erreurs, retry | [ ] |
-
----
-
-## Phase 4 - Pilier Données 📊
-
-### 4.1 Infrastructure Data
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 4.1.1 | `integration/data/etl_pipeline.py` | `test_etl_extract()` - Extraction données sources | [ ] |
-| 4.1.2 | ETL: Transform | `test_etl_transform()` - Transformations appliquées | [ ] |
-| 4.1.3 | ETL: Load | `test_etl_load()` - Chargement cible | [ ] |
-| 4.1.4 | `integration/data/cdc_simulator.py` | `test_cdc_capture()` - Capture incrémentale | [ ] |
-
-### 4.2 Module 9 - ETL et Batch
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 4.2.1 | Contenu ETL vs ELT | `test_module9_etl_elt()` - Différences expliquées | [ ] |
-| 4.2.2 | Contenu design pipelines | `test_module9_pipeline_design()` - Bonnes pratiques | [ ] |
-| 4.2.3 | Contenu orchestration jobs | `test_module9_orchestration()` - Scheduling, dépendances | [ ] |
-| 4.2.4 | Contenu gestion erreurs batch | `test_module9_error_handling()` - Reprise, retry | [ ] |
-| 4.2.5 | Sandbox DATA-01: ETL batch sinistres | `test_sandbox_data01()` - Pipeline ETL classique | [ ] |
-| 4.2.6 | Sandbox DATA-03: Pipeline renouvellements | `test_sandbox_data03()` - Orchestration, dépendances | [ ] |
-
-### 4.3 Module 10 - CDC et Streaming
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 4.3.1 | Contenu CDC principes | `test_module10_cdc_principles()` - Capture incrémentale | [ ] |
-| 4.3.2 | Contenu Log vs Trigger CDC | `test_module10_cdc_types()` - Comparaison | [ ] |
-| 4.3.3 | Contenu streaming basics | `test_module10_streaming()` - Concepts Kafka-like | [ ] |
-| 4.3.4 | Contenu Database per Service | `test_module10_db_per_service()` - Synchronisation | [ ] |
-| 4.3.5 | Sandbox DATA-02: CDC temps réel polices | `test_sandbox_data02()` - Capture incrémentale | [ ] |
-
-### 4.4 Module 11 - Qualité et Gouvernance
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 4.4.1 | `integration/data/data_quality.py` | `test_data_quality_checks()` - Validations | [ ] |
-| 4.4.2 | `integration/data/mdm.py` | `test_mdm_golden_record()` - Consolidation | [ ] |
-| 4.4.3 | `integration/data/lineage.py` | `test_data_lineage_tracking()` - Traçabilité | [ ] |
-| 4.4.4 | Contenu dimensions qualité | `test_module11_quality_dims()` - Métriques | [ ] |
-| 4.4.5 | Contenu MDM | `test_module11_mdm()` - Golden record | [ ] |
-| 4.4.6 | Contenu Data Lineage | `test_module11_lineage()` - Traçabilité | [ ] |
-| 4.4.7 | Sandbox DATA-04: MDM client | `test_sandbox_data04()` - Matching, merge | [ ] |
-| 4.4.8 | Sandbox DATA-05: Contrôle qualité | `test_sandbox_data05()` - Validation, alerting | [ ] |
-| 4.4.9 | Sandbox DATA-06: Data virtualization | `test_sandbox_data06()` - Vue fédérée | [ ] |
-| 4.4.10 | Sandbox DATA-07: Data lineage | `test_sandbox_data07()` - Traçabilité bout-en-bout | [ ] |
-
----
-
-## Phase 5 - Patterns Transversaux
-
-### 5.1 Implémentation Résilience
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 5.1.1 | `integration/cross_cutting/circuit_breaker.py` | `test_circuit_breaker_states()` - Closed/Open/Half-Open | [ ] |
-| 5.1.2 | `integration/cross_cutting/retry.py` | `test_retry_backoff()` - Backoff exponentiel | [ ] |
-| 5.1.3 | Fallback et timeout | `test_fallback_timeout()` - Solutions de repli | [ ] |
-| 5.1.4 | Bulkhead simulation | `test_bulkhead_isolation()` - Isolation ressources | [ ] |
-
-### 5.2 Module 12 - Résilience
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 5.2.1 | Contenu Circuit Breaker | `test_module12_cb_content()` - Pattern expliqué | [ ] |
-| 5.2.2 | Contenu Retry avec backoff | `test_module12_retry_content()` - Stratégies | [ ] |
-| 5.2.3 | Contenu Timeout et Fallback | `test_module12_fallback_content()` - Repli | [ ] |
-| 5.2.4 | Contenu Bulkhead | `test_module12_bulkhead_content()` - Isolation | [ ] |
-| 5.2.5 | Sandbox CROSS-01: Panne tarificateur | `test_sandbox_cross01()` - Circuit Breaker, Fallback | [ ] |
-
-### 5.3 Module 13 - Observabilité
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 5.3.1 | `integration/cross_cutting/observability.py` | `test_observability_logs()` - Logging structuré | [ ] |
-| 5.3.2 | Tracing distribué simulation | `test_distributed_tracing()` - Correlation ID | [ ] |
-| 5.3.3 | Contenu 3 piliers observabilité | `test_module13_pillars()` - Logs, Metrics, Traces | [ ] |
-| 5.3.4 | Contenu distributed tracing | `test_module13_tracing()` - Corrélation | [ ] |
-| 5.3.5 | Sandbox CROSS-02: Tracing distribué | `test_sandbox_cross02()` - Instrumenter l'écosystème | [ ] |
-
-### 5.4 Module 14 - Sécurité
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 5.4.1 | `integration/cross_cutting/security.py` | `test_security_api_key()` - Authentification basique | [ ] |
-| 5.4.2 | JWT simulation | `test_jwt_validation()` - Token validation | [ ] |
-| 5.4.3 | Contenu auth API | `test_module14_auth()` - API Key, OAuth, JWT | [ ] |
-| 5.4.4 | Contenu autorisation RBAC | `test_module14_rbac()` - Contrôle d'accès | [ ] |
-| 5.4.5 | Contenu chiffrement | `test_module14_encryption()` - Transit et repos | [ ] |
-| 5.4.6 | Sandbox CROSS-03: Sécuriser gateway | `test_sandbox_cross03()` - OAuth, JWT | [ ] |
-
----
-
-## Phase 6 - Synthèse et Finalisation
-
-### 6.1 Module 15 - Décisions d'Architecture
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 6.1.1 | Contenu orchestration vs choreography | `test_module15_orch_choreo()` - Critères choix | [ ] |
-| 6.1.2 | Contenu matrice décision | `test_module15_decision_matrix()` - Quand quel type | [ ] |
-| 6.1.3 | Contenu trade-offs | `test_module15_tradeoffs()` - Compromis documentés | [ ] |
-| 6.1.4 | Contenu anti-patterns | `test_module15_antipatterns()` - À éviter | [ ] |
-| 6.1.5 | Contenu ADR | `test_module15_adr()` - Architecture Decision Records | [ ] |
-| 6.1.6 | Sandbox: Documenter choix architecture | `test_sandbox_adr()` - Création ADR guidée | [ ] |
-
-### 6.2 Module 16 - Projet Final
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 6.2.1 | Cahier des charges projet | `test_module16_specs()` - Requis documentés | [ ] |
-| 6.2.2 | Guide conception architecture | `test_module16_design_guide()` - Étapes | [ ] |
-| 6.2.3 | Implémentation guidée | `test_module16_implementation()` - Support étape par étape | [ ] |
-| 6.2.4 | Sandbox CROSS-04: Écosystème complet | `test_sandbox_cross04()` - Intégrer les 3 piliers | [ ] |
-
-### 6.3 Documentation Intégrée
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 6.3.1 | Glossaire interactif | `test_glossary_tooltips()` - Tooltips au survol | [ ] |
-| 6.3.2 | Fiches patterns (tous piliers) | `test_pattern_cards_complete()` - Structure standard | [ ] |
-| 6.3.3 | Cheat sheets par pilier | `test_cheatsheets()` - Aide-mémoire disponibles | [ ] |
-| 6.3.4 | API `GET /api/docs/search` | `test_docs_search()` - Recherche full-text | [ ] |
-| 6.3.5 | API `GET /api/docs/patterns` | `test_docs_patterns_api()` - Liste patterns | [ ] |
-| 6.3.6 | Graphe relations patterns | `test_pattern_relations_graph()` - Navigation visuelle | [ ] |
-
-### 6.4 Polish UI/UX
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 6.4.1 | Animations expressives (500ms+) | `test_animations_timing()` - Durées correctes | [ ] |
-| 6.4.2 | Toast notifications | `test_toast_notifications()` - Erreurs affichées | [ ] |
-| 6.4.3 | Panneaux redimensionnables sandbox | `test_resizable_panels()` - Drag fonctionne | [ ] |
-| 6.4.4 | Taille police ajustable | `test_font_size_adjustment()` - Préférence sauvée | [ ] |
-| 6.4.5 | Couleurs par pilier cohérentes | `test_pillar_colors()` - Bleu/Orange/Vert | [ ] |
-
-### 6.5 Tests Finaux et Qualité
-| Tâche | Description | Test | Statut |
-|-------|-------------|------|--------|
-| 6.5.1 | Couverture tests > 80% | `pytest --cov` - Coverage report | [ ] |
-| 6.5.2 | Tests E2E parcours complet | `test_e2e_full_journey()` - Module 1 à 16 | [ ] |
-| 6.5.3 | Performance: page < 2s | `test_page_load_time()` - Lighthouse | [ ] |
-| 6.5.4 | Performance: sandbox < 100ms | `test_sandbox_latency()` - Réponse rapide | [ ] |
-| 6.5.5 | Docstrings complets | `test_docstrings_present()` - Documentation code | [ ] |
+> **Usage avec Claude Code** : Demander `/feature 1.1` pour implémenter une feature, `/test 1.1` pour exécuter ses tests.
 
 ---
 
@@ -296,20 +8,930 @@ Application d'apprentissage de l'interopérabilité en écosystème d'entreprise
 
 | Métrique | Cible | Actuel |
 |----------|-------|--------|
-| Modules complétés | 16 | 0 |
-| Scénarios sandbox | 21 | 0 |
-| Fiches patterns | ~30 | 0 |
-| Couverture tests | >80% | 0% |
-| Tâches terminées | 156 | 0 |
+| Features complétées | 21 | 0 |
+| Tâches terminées | 181 | 0 |
+| Tests passants | 165 | 0 |
+| Couverture code | >80% | 0% |
 
 ---
 
-## Légende
+# Phase 1 - Fondations
 
-- `[ ]` : À faire
-- `[~]` : En cours
-- `[x]` : Terminé
-- `[!]` : Bloqué
+## Feature 1.1 : Structure Projet
+> **Fichiers** : `requirements.txt`, `run.py`, `install.bat`, `run.bat`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Créer arborescence dossiers | `app/`, `static/`, `data/`, `tests/` | [ ] |
+| 2 | Créer requirements.txt | `requirements.txt` | [ ] |
+| 3 | Créer point d'entrée | `run.py` | [ ] |
+| 4 | Créer scripts Windows | `install.bat`, `run.bat` | [ ] |
+
+**Tests** : `tests/test_feature_1_1.py`
+```python
+from pathlib import Path
+
+def test_directories_exist():
+    dirs = ["app", "app/api", "app/mocks", "app/integration", "app/theory",
+            "app/templates", "static", "static/css", "static/js", "data", "tests"]
+    for d in dirs:
+        assert Path(d).is_dir(), f"Missing: {d}"
+
+def test_requirements_valid():
+    req = Path("requirements.txt")
+    assert req.exists()
+    content = req.read_text()
+    assert "fastapi" in content
+    assert "uvicorn" in content
+
+def test_run_script():
+    assert Path("run.py").exists()
+    content = Path("run.py").read_text()
+    assert "uvicorn" in content
+```
+
+**Critères** : `[ ]` Dossiers créés `[ ]` pip install OK `[ ]` python run.py démarre
+
+---
+
+## Feature 1.2 : Application FastAPI
+> **Fichiers** : `app/main.py`, `app/config.py`, `app/database.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Application FastAPI de base | `app/main.py` | [ ] |
+| 2 | Configuration constantes | `app/config.py` | [ ] |
+| 3 | Init SQLite + schéma | `app/database.py` | [ ] |
+| 4 | Endpoint SSE temps réel | `app/main.py` | [ ] |
+
+**Tests** : `tests/test_feature_1_2.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_app_responds():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/")
+        assert r.status_code == 200
+
+def test_config():
+    from app.config import APP_NAME, DATABASE_PATH
+    assert APP_NAME == "Interop Learning"
+    assert DATABASE_PATH is not None
+
+@pytest.mark.asyncio
+async def test_database_tables():
+    from app.database import init_db, get_connection
+    await init_db()
+    async with get_connection() as db:
+        cursor = await db.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = [r[0] for r in await cursor.fetchall()]
+        assert "learner_progress" in tables
+        assert "sandbox_sessions" in tables
+```
+
+**Critères** : `[ ]` GET / = 200 `[ ]` Config accessible `[ ]` Tables SQLite créées `[ ]` SSE fonctionne
+
+---
+
+## Feature 1.3 : Interface Utilisateur Base
+> **Fichiers** : `app/templates/base.html`, `static/css/`, `static/js/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Template base HTML5 + Tailwind | `app/templates/base.html` | [ ] |
+| 2 | Intégrer Tailwind CSS | `static/css/tailwind.min.css` | [ ] |
+| 3 | Intégrer HTMX | `static/js/htmx.min.js` | [ ] |
+| 4 | Thème sombre par défaut | `app/templates/base.html` | [ ] |
+| 5 | Sidebar navigation | `app/templates/components/sidebar.html` | [ ] |
+| 6 | Breadcrumb dynamique | `app/templates/components/breadcrumb.html` | [ ] |
+
+**Tests** : `tests/test_feature_1_3.py`
+```python
+import pytest
+from httpx import AsyncClient
+from bs4 import BeautifulSoup
+
+@pytest.mark.asyncio
+async def test_dark_theme():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/")
+        assert "dark" in r.text or "bg-gray-900" in r.text
+
+@pytest.mark.asyncio
+async def test_sidebar_exists():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/")
+        soup = BeautifulSoup(r.text, "html.parser")
+        assert soup.find(id="sidebar") or soup.find(class_="sidebar")
+
+@pytest.mark.asyncio
+async def test_htmx_loaded():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/")
+        assert "htmx" in r.text.lower()
+```
+
+**Critères** : `[ ]` Thème sombre `[ ]` Sidebar visible `[ ]` HTMX chargé `[ ]` Breadcrumb
+
+---
+
+## Feature 1.4 : API Progression
+> **Fichiers** : `app/api/progress.py`, `app/api/theory.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Route GET /api/progress | `app/api/progress.py` | [ ] |
+| 2 | Route GET /api/theory/modules | `app/api/theory.py` | [ ] |
+| 3 | Route GET /api/theory/modules/{id} | `app/api/theory.py` | [ ] |
+| 4 | Route POST /api/theory/modules/{id}/complete | `app/api/theory.py` | [ ] |
+
+**Tests** : `tests/test_feature_1_4.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_get_progress():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/progress")
+        assert r.status_code == 200
+        data = r.json()
+        assert "completed_modules" in data
+        assert "total_modules" in data
+        assert data["total_modules"] == 16
+
+@pytest.mark.asyncio
+async def test_get_modules():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/theory/modules")
+        assert r.status_code == 200
+        assert len(r.json()) == 16
+
+@pytest.mark.asyncio
+async def test_complete_module():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.post("/api/theory/modules/1/complete")
+        assert r.status_code == 200
+```
+
+**Critères** : `[ ]` Progression retournée `[ ]` 16 modules listés `[ ]` Marquage complété OK
+
+---
+
+## Feature 1.5 : Module 1 - Introduction
+> **Fichiers** : `app/theory/content/01_introduction/`, `app/theory/renderer.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Créer dossier contenu | `app/theory/content/01_introduction/` | [ ] |
+| 2 | Section 1.1 Définition | `01_definition.md` | [ ] |
+| 3 | Section 1.2 Trois piliers | `02_trois_piliers.md` | [ ] |
+| 4 | Section 1.3 Enjeux | `03_enjeux.md` | [ ] |
+| 5 | Section 1.4 Patterns | `04_patterns_overview.md` | [ ] |
+| 6 | Renderer Markdown→HTML | `app/theory/renderer.py` | [ ] |
+| 7 | Diagramme 3 piliers D3.js | `static/js/diagrams/pillars.js` | [ ] |
+| 8 | Scénario INTRO-01 | `app/sandbox/scenarios/intro_01.py` | [ ] |
+
+**Tests** : `tests/test_feature_1_5.py`
+```python
+import pytest
+from pathlib import Path
+from httpx import AsyncClient
+
+def test_content_files():
+    base = Path("app/theory/content/01_introduction")
+    assert base.is_dir()
+    assert (base / "01_definition.md").exists()
+    assert (base / "02_trois_piliers.md").exists()
+
+def test_renderer():
+    from app.theory.renderer import render_markdown
+    html = render_markdown("# Test\n**bold**")
+    assert "<h1>" in html
+    assert "<strong>" in html
+
+@pytest.mark.asyncio
+async def test_module1_content():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/theory/modules/1")
+        assert "interopérabilité" in r.json()["content"].lower()
+```
+
+**Critères** : `[ ]` 4 sections MD `[ ]` Renderer OK `[ ]` Diagramme interactif `[ ]` Scénario INTRO-01
+
+---
+
+## Feature 1.6 : Module 2 - Domaine Assurance
+> **Fichiers** : `app/theory/content/02_domaine_assurance/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Section 2.1 Processus métier | `01_processus.md` | [ ] |
+| 2 | Section 2.2 Entités | `02_entites.md` | [ ] |
+| 3 | Section 2.3 Systèmes | `03_systemes.md` | [ ] |
+| 4 | Section 2.4 Intégration | `04_integration.md` | [ ] |
+| 5 | Diagramme ER D3.js | `static/js/diagrams/entities.js` | [ ] |
+| 6 | Diagramme flux processus | `static/js/diagrams/process_flow.js` | [ ] |
+| 7 | Scénario INTRO-02 | `app/sandbox/scenarios/intro_02.py` | [ ] |
+
+**Tests** : `tests/test_feature_1_6.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_module2_entities():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/theory/modules/2")
+        content = r.json()["content"].lower()
+        for entity in ["quote", "policy", "claim", "invoice", "customer"]:
+            assert entity in content
+
+@pytest.mark.asyncio
+async def test_module2_systems():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/theory/modules/2")
+        content = r.json()["content"].lower()
+        assert "quote engine" in content
+        assert "policy admin" in content
+```
+
+**Critères** : `[ ]` 5 entités décrites `[ ]` 8 systèmes décrits `[ ]` Diagrammes `[ ]` Scénario
+
+---
+
+# Phase 2 - Pilier Applications 🔗
+
+## Feature 2.1 : Services Mock
+> **Fichiers** : `app/mocks/`, `data/mock_data/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Classe base MockService | `app/mocks/base.py` | [ ] |
+| 2 | Quote Engine | `app/mocks/quote_engine.py` | [ ] |
+| 3 | Policy Admin | `app/mocks/policy_admin.py` | [ ] |
+| 4 | Claims | `app/mocks/claims.py` | [ ] |
+| 5 | Billing | `app/mocks/billing.py` | [ ] |
+| 6 | Customer Hub | `app/mocks/customer_hub.py` | [ ] |
+| 7 | Document Mgmt | `app/mocks/document_mgmt.py` | [ ] |
+| 8 | Notifications | `app/mocks/notifications.py` | [ ] |
+| 9 | External Rating | `app/mocks/external_rating.py` | [ ] |
+| 10 | Données JSON fixes | `data/mock_data/*.json` | [ ] |
+| 11 | Latence configurable | `app/mocks/base.py` | [ ] |
+| 12 | Injection pannes | `app/mocks/base.py` | [ ] |
+
+**Tests** : `tests/test_feature_2_1.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_quote_engine():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.post("/mocks/quotes", json={
+            "customer_id": "C001", "product": "AUTO", "risk_data": {}
+        })
+        assert r.status_code == 201
+        assert "id" in r.json()
+
+@pytest.mark.asyncio
+async def test_policy_crud():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        # Create
+        r = await client.post("/mocks/policies", json={"customer_id": "C001", "product": "AUTO"})
+        assert r.status_code == 201
+        pid = r.json()["number"]
+        # Read
+        r = await client.get(f"/mocks/policies/{pid}")
+        assert r.status_code == 200
+        # Delete
+        r = await client.delete(f"/mocks/policies/{pid}")
+        assert r.status_code == 204
+
+@pytest.mark.asyncio
+async def test_mock_data_loaded():
+    from app.mocks import get_mock_data
+    data = get_mock_data()
+    assert len(data["customers"]) >= 5
+```
+
+**Critères** : `[ ]` 8 services mock `[ ]` Données JSON `[ ]` Latence config `[ ]` Pannes injectables
+
+---
+
+## Feature 2.2 : Module 3 - REST API
+> **Fichiers** : `app/theory/content/03_rest_api/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Section Richardson Model | `01_rmm.md` | [ ] |
+| 2 | Section Design ressources | `02_resources.md` | [ ] |
+| 3 | Section Versioning | `03_versioning.md` | [ ] |
+| 4 | Section OpenAPI | `04_openapi.md` | [ ] |
+| 5 | Section Erreurs HTTP | `05_errors.md` | [ ] |
+| 6 | Visualiseur OpenAPI | `static/js/openapi-viewer.js` | [ ] |
+| 7 | Scénario APP-01 | `app/sandbox/scenarios/app_01.py` | [ ] |
+
+**Tests** : `tests/test_feature_2_2.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_module3_rmm():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/theory/modules/3")
+        content = r.json()["content"].lower()
+        assert "richardson" in content or "level 0" in content
+
+@pytest.mark.asyncio
+async def test_sandbox_app01():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/sandbox/scenarios/APP-01")
+        assert r.status_code == 200
+        assert 6 <= len(r.json()["steps"]) <= 10
+```
+
+**Critères** : `[ ]` 5 sections `[ ]` Visualiseur OpenAPI `[ ]` Scénario APP-01
+
+---
+
+## Feature 2.3 : Module 4 - Gateway & BFF
+> **Fichiers** : `app/integration/applications/gateway.py`, `app/integration/applications/bff.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Gateway routing | `app/integration/applications/gateway.py` | [ ] |
+| 2 | Rate limiting | `app/integration/applications/gateway.py` | [ ] |
+| 3 | BFF Mobile | `app/integration/applications/bff.py` | [ ] |
+| 4 | BFF Courtier | `app/integration/applications/bff.py` | [ ] |
+| 5 | Contenu Module 4 | `app/theory/content/04_api_gateway/` | [ ] |
+| 6 | Scénario APP-02 | `app/sandbox/scenarios/app_02.py` | [ ] |
+| 7 | Scénario APP-03 | `app/sandbox/scenarios/app_03.py` | [ ] |
+
+**Tests** : `tests/test_feature_2_3.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_gateway_routing():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/gateway/quotes/Q001")
+        assert r.status_code == 200
+
+@pytest.mark.asyncio
+async def test_bff_mobile_reduced():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/bff/mobile/customer/C001")
+        data = r.json()
+        assert "name" in data
+        assert "policies" not in data  # Réduit pour mobile
+
+@pytest.mark.asyncio
+async def test_bff_broker_full():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/bff/broker/customer/C001")
+        data = r.json()
+        assert "policies" in data  # Complet pour courtier
+```
+
+**Critères** : `[ ]` Gateway route `[ ]` Rate limit `[ ]` BFF mobile `[ ]` BFF broker `[ ]` Scénarios
+
+---
+
+## Feature 2.4 : Module 5 - Patterns Avancés
+> **Fichiers** : `app/integration/applications/composition.py`, `app/integration/applications/acl.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | API Composition 360° | `app/integration/applications/composition.py` | [ ] |
+| 2 | Anti-Corruption Layer | `app/integration/applications/acl.py` | [ ] |
+| 3 | Contenu Module 5 | `app/theory/content/05_patterns_avances/` | [ ] |
+| 4 | Scénario APP-04 | `app/sandbox/scenarios/app_04.py` | [ ] |
+| 5 | Scénario APP-05 | `app/sandbox/scenarios/app_05.py` | [ ] |
+
+**Tests** : `tests/test_feature_2_4.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_composition_360():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/composition/customer/C001/360")
+        data = r.json()
+        assert "customer" in data
+        assert "policies" in data
+        assert "claims" in data
+
+@pytest.mark.asyncio
+async def test_acl_transform():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.post("/acl/customer/transform", json={
+            "CUST_NUM": "123", "CUST_NM": "DUPONT JEAN"
+        })
+        data = r.json()
+        assert "firstName" in data
+        assert "lastName" in data
+```
+
+**Critères** : `[ ]` Composition 5+ sources `[ ]` ACL transforme `[ ]` Scénarios APP-04/05
+
+---
+
+# Phase 3 - Pilier Événements ⚡
+
+## Feature 3.1 : Message Broker In-Memory
+> **Fichiers** : `app/integration/events/broker.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Broker central | `app/integration/events/broker.py` | [ ] |
+| 2 | Queue point-à-point | `app/integration/events/broker.py` | [ ] |
+| 3 | Topic Pub/Sub | `app/integration/events/broker.py` | [ ] |
+| 4 | Garantie at-least-once | `app/integration/events/broker.py` | [ ] |
+| 5 | Dead Letter Queue | `app/integration/events/broker.py` | [ ] |
+| 6 | API contrôle | `app/api/broker.py` | [ ] |
+
+**Tests** : `tests/test_feature_3_1.py`
+```python
+import pytest
+import asyncio
+from app.integration.events.broker import MessageBroker
+
+@pytest.mark.asyncio
+async def test_queue_point_to_point():
+    broker = MessageBroker()
+    await broker.send_to_queue("test", {"id": 1})
+    msg = await broker.receive_from_queue("test")
+    assert msg["id"] == 1
+
+@pytest.mark.asyncio
+async def test_pubsub_multi():
+    broker = MessageBroker()
+    received = []
+    await broker.subscribe("topic", lambda m: received.append(m))
+    await broker.subscribe("topic", lambda m: received.append(m))
+    await broker.publish("topic", {"data": "test"})
+    await asyncio.sleep(0.1)
+    assert len(received) == 2
+
+@pytest.mark.asyncio
+async def test_dlq():
+    broker = MessageBroker()
+    async def fail(m): raise Exception("fail")
+    await broker.subscribe("flaky", fail, max_retries=2)
+    await broker.publish("flaky", {"x": 1})
+    await asyncio.sleep(0.3)
+    dlq = await broker.receive_from_queue("flaky.dlq")
+    assert dlq is not None
+```
+
+**Critères** : `[ ]` Queue P2P `[ ]` Pub/Sub multi `[ ]` At-least-once `[ ]` DLQ
+
+---
+
+## Feature 3.2 : Visualiseur Flux D3.js
+> **Fichiers** : `static/js/flow-visualizer.js`, `app/templates/sandbox/visualizer.html`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Module visualiseur | `static/js/flow-visualizer.js` | [ ] |
+| 2 | Layout force-directed | `static/js/flow-visualizer.js` | [ ] |
+| 3 | Animation particules | `static/js/flow-visualizer.js` | [ ] |
+| 4 | Zoom et pan | `static/js/flow-visualizer.js` | [ ] |
+| 5 | Timeline replay | `static/js/flow-visualizer.js` | [ ] |
+| 6 | Couleurs par pilier | `static/js/flow-visualizer.js` | [ ] |
+| 7 | Template page | `app/templates/sandbox/visualizer.html` | [ ] |
+| 8 | Connexion SSE | `static/js/flow-visualizer.js` | [ ] |
+
+**Tests** : `tests/test_feature_3_2.py`
+```python
+import pytest
+from pathlib import Path
+from httpx import AsyncClient
+
+def test_visualizer_exports():
+    js = Path("static/js/flow-visualizer.js").read_text()
+    assert "initFlowVisualizer" in js
+    assert "addNode" in js
+    assert "animateMessage" in js
+
+@pytest.mark.asyncio
+async def test_visualizer_page():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/sandbox/visualizer")
+        assert r.status_code == 200
+        assert "svg" in r.text.lower() or "d3" in r.text.lower()
+```
+
+**Critères** : `[ ]` Nœuds services `[ ]` Particules animées `[ ]` Zoom/Pan `[ ]` Timeline `[ ]` SSE
+
+---
+
+## Feature 3.3 : Module 6 - Messaging Basics
+> **Fichiers** : `app/theory/content/06_messaging_basics/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Section Sync vs Async | `01_sync_async.md` | [ ] |
+| 2 | Section Queue | `02_queue.md` | [ ] |
+| 3 | Section Pub/Sub | `03_pubsub.md` | [ ] |
+| 4 | Section Garanties | `04_guarantees.md` | [ ] |
+| 5 | Section Idempotence | `05_idempotence.md` | [ ] |
+| 6 | Scénario EVT-01 | `app/sandbox/scenarios/evt_01.py` | [ ] |
+| 7 | Scénario EVT-02 | `app/sandbox/scenarios/evt_02.py` | [ ] |
+
+**Tests** : `tests/test_feature_3_3.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_module6_content():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/theory/modules/6")
+        content = r.json()["content"].lower()
+        assert "queue" in content
+        assert "pub" in content or "topic" in content
+        assert "idempoten" in content
+
+@pytest.mark.asyncio
+async def test_scenarios_evt01_02():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        for s in ["EVT-01", "EVT-02"]:
+            r = await client.get(f"/api/sandbox/scenarios/{s}")
+            assert r.status_code == 200
+```
+
+**Critères** : `[ ]` 5 sections `[ ]` Scénario EVT-01 `[ ]` Scénario EVT-02
+
+---
+
+## Feature 3.4 : Module 7 - Event-Driven
+> **Fichiers** : `app/integration/events/event_store.py`, `app/integration/events/cqrs.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Event Store append-only | `app/integration/events/event_store.py` | [ ] |
+| 2 | Rebuild state (replay) | `app/integration/events/event_store.py` | [ ] |
+| 3 | CQRS Command Handler | `app/integration/events/cqrs.py` | [ ] |
+| 4 | CQRS Query Handler | `app/integration/events/cqrs.py` | [ ] |
+| 5 | Projections | `app/integration/events/cqrs.py` | [ ] |
+| 6 | Contenu Module 7 | `app/theory/content/07_event_driven/` | [ ] |
+| 7 | Scénario EVT-03 | `app/sandbox/scenarios/evt_03.py` | [ ] |
+| 8 | Scénario EVT-05 | `app/sandbox/scenarios/evt_05.py` | [ ] |
+
+**Tests** : `tests/test_feature_3_4.py`
+```python
+import pytest
+from app.integration.events.event_store import EventStore
+
+@pytest.mark.asyncio
+async def test_event_store():
+    es = EventStore()
+    await es.append("p-1", {"type": "Created", "data": {"status": "DRAFT"}})
+    await es.append("p-1", {"type": "Activated", "data": {"status": "ACTIVE"}})
+    events = await es.get_events("p-1")
+    assert len(events) == 2
+    state = await es.rebuild_state("p-1")
+    assert state["status"] == "ACTIVE"
+```
+
+**Critères** : `[ ]` Event Store `[ ]` Replay `[ ]` CQRS `[ ]` Projections `[ ]` Scénarios
+
+---
+
+## Feature 3.5 : Module 8 - Saga & Outbox
+> **Fichiers** : `app/integration/events/saga.py`, `app/integration/events/outbox.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Saga Orchestrator | `app/integration/events/saga.py` | [ ] |
+| 2 | Compensation (rollback) | `app/integration/events/saga.py` | [ ] |
+| 3 | Outbox table + polling | `app/integration/events/outbox.py` | [ ] |
+| 4 | Contenu Module 8 | `app/theory/content/08_saga_transactions/` | [ ] |
+| 5 | Scénario EVT-04 | `app/sandbox/scenarios/evt_04.py` | [ ] |
+| 6 | Scénario EVT-06 | `app/sandbox/scenarios/evt_06.py` | [ ] |
+| 7 | Scénario EVT-07 | `app/sandbox/scenarios/evt_07.py` | [ ] |
+
+**Tests** : `tests/test_feature_3_5.py`
+```python
+import pytest
+from app.integration.events.saga import SagaOrchestrator
+
+@pytest.mark.asyncio
+async def test_saga_success():
+    saga = SagaOrchestrator()
+    saga.add_step("step1", compensate="comp1")
+    saga.add_step("step2", compensate="comp2")
+    result = await saga.execute({"data": "test"})
+    assert result["status"] == "COMPLETED"
+
+@pytest.mark.asyncio
+async def test_saga_compensation():
+    saga = SagaOrchestrator()
+    compensated = []
+    saga.add_step(lambda ctx: {"ok": True}, compensate=lambda ctx: compensated.append(1))
+    saga.add_step(lambda ctx: (_ for _ in ()).throw(Exception("fail")), compensate=None)
+    result = await saga.execute({})
+    assert result["status"] == "COMPENSATED"
+    assert len(compensated) == 1
+```
+
+**Critères** : `[ ]` Saga N étapes `[ ]` Compensation auto `[ ]` Outbox atomique `[ ]` Scénarios
+
+---
+
+# Phase 4 - Pilier Données 📊
+
+## Feature 4.1 : ETL & CDC
+> **Fichiers** : `app/integration/data/etl_pipeline.py`, `app/integration/data/cdc_simulator.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | ETL Extract | `app/integration/data/etl_pipeline.py` | [ ] |
+| 2 | ETL Transform | `app/integration/data/etl_pipeline.py` | [ ] |
+| 3 | ETL Load | `app/integration/data/etl_pipeline.py` | [ ] |
+| 4 | CDC Capture | `app/integration/data/cdc_simulator.py` | [ ] |
+| 5 | CDC Publish | `app/integration/data/cdc_simulator.py` | [ ] |
+
+**Tests** : `tests/test_feature_4_1.py`
+```python
+import pytest
+from app.integration.data.etl_pipeline import ETLPipeline
+from app.integration.data.cdc_simulator import CDCSimulator
+
+@pytest.mark.asyncio
+async def test_etl_full():
+    etl = ETLPipeline()
+    result = await etl.run({"source": "claims", "destination": "dwh"})
+    assert result["status"] == "completed"
+
+@pytest.mark.asyncio
+async def test_cdc_capture():
+    cdc = CDCSimulator()
+    await cdc.simulate_change("policies", "UPDATE", {"id": "P1"})
+    changes = await cdc.capture_since(0)
+    assert len(changes) == 1
+    assert changes[0]["operation"] == "UPDATE"
+```
+
+**Critères** : `[ ]` ETL complet `[ ]` CDC capture `[ ]` CDC publie
+
+---
+
+## Feature 4.2 : Modules 9-11 Data
+> **Fichiers** : `app/theory/content/09_etl_batch/`, `10_cdc_streaming/`, `11_data_quality/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Contenu Module 9 ETL | `app/theory/content/09_etl_batch/` | [ ] |
+| 2 | Contenu Module 10 CDC | `app/theory/content/10_cdc_streaming/` | [ ] |
+| 3 | Contenu Module 11 Quality | `app/theory/content/11_data_quality/` | [ ] |
+| 4 | Data Quality checks | `app/integration/data/data_quality.py` | [ ] |
+| 5 | MDM golden record | `app/integration/data/mdm.py` | [ ] |
+| 6 | Data Lineage | `app/integration/data/lineage.py` | [ ] |
+| 7 | Scénarios DATA-01 à DATA-07 | `app/sandbox/scenarios/data_*.py` | [ ] |
+
+**Tests** : `tests/test_feature_4_2.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_modules_9_10_11():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        for m in [9, 10, 11]:
+            r = await client.get(f"/api/theory/modules/{m}")
+            assert r.status_code == 200
+
+@pytest.mark.asyncio
+async def test_data_scenarios():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        for i in range(1, 8):
+            r = await client.get(f"/api/sandbox/scenarios/DATA-0{i}")
+            assert r.status_code == 200
+```
+
+**Critères** : `[ ]` Modules 9-11 `[ ]` Data Quality `[ ]` MDM `[ ]` Lineage `[ ]` 7 scénarios
+
+---
+
+# Phase 5 - Patterns Transversaux
+
+## Feature 5.1 : Résilience & Modules 12-14
+> **Fichiers** : `app/integration/cross_cutting/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Circuit Breaker | `app/integration/cross_cutting/circuit_breaker.py` | [ ] |
+| 2 | Retry + Backoff | `app/integration/cross_cutting/retry.py` | [ ] |
+| 3 | Fallback + Timeout | `app/integration/cross_cutting/retry.py` | [ ] |
+| 4 | Observability | `app/integration/cross_cutting/observability.py` | [ ] |
+| 5 | Security JWT | `app/integration/cross_cutting/security.py` | [ ] |
+| 6 | Contenu Module 12 | `app/theory/content/12_resilience/` | [ ] |
+| 7 | Contenu Module 13 | `app/theory/content/13_observability/` | [ ] |
+| 8 | Contenu Module 14 | `app/theory/content/14_security/` | [ ] |
+| 9 | Scénarios CROSS-01/02/03 | `app/sandbox/scenarios/cross_*.py` | [ ] |
+
+**Tests** : `tests/test_feature_5_1.py`
+```python
+import pytest
+import asyncio
+from app.integration.cross_cutting.circuit_breaker import CircuitBreaker
+
+@pytest.mark.asyncio
+async def test_circuit_breaker():
+    cb = CircuitBreaker(failure_threshold=2, reset_timeout=0.5)
+    assert cb.state == "CLOSED"
+    for _ in range(2):
+        try:
+            async with cb: raise Exception()
+        except: pass
+    assert cb.state == "OPEN"
+    await asyncio.sleep(0.6)
+    assert cb.state == "HALF_OPEN"
+```
+
+**Critères** : `[ ]` Circuit Breaker `[ ]` Retry `[ ]` Modules 12-14 `[ ]` Scénarios CROSS
+
+---
+
+# Phase 6 - Synthèse
+
+## Feature 6.1 : Modules 15-16 & Projet Final
+> **Fichiers** : `app/theory/content/15_architecture_decisions/`, `16_projet_final/`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Contenu Module 15 | `app/theory/content/15_architecture_decisions/` | [ ] |
+| 2 | Matrice décision | `static/js/decision-matrix.js` | [ ] |
+| 3 | Anti-patterns | `15_architecture_decisions/05_antipatterns.md` | [ ] |
+| 4 | Contenu Module 16 | `app/theory/content/16_projet_final/` | [ ] |
+| 5 | Scénario CROSS-04 | `app/sandbox/scenarios/cross_04.py` | [ ] |
+
+**Tests** : `tests/test_feature_6_1.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_modules_15_16():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        for m in [15, 16]:
+            r = await client.get(f"/api/theory/modules/{m}")
+            assert r.status_code == 200
+
+@pytest.mark.asyncio
+async def test_cross04_ecosystem():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/sandbox/scenarios/CROSS-04")
+        assert len(r.json()["steps"]) >= 10
+```
+
+**Critères** : `[ ]` Module 15 `[ ]` Module 16 `[ ]` CROSS-04 intègre 3 piliers
+
+---
+
+## Feature 6.2 : Documentation Intégrée
+> **Fichiers** : `app/docs/`, `app/api/docs.py`
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Structure docs | `app/docs/` | [ ] |
+| 2 | Glossaire tooltips | `app/docs/glossary.json` | [ ] |
+| 3 | Fiches patterns 25+ | `app/docs/patterns/` | [ ] |
+| 4 | Cheat sheets | `app/docs/cheatsheets/` | [ ] |
+| 5 | API recherche | `app/api/docs.py` | [ ] |
+| 6 | API patterns | `app/api/docs.py` | [ ] |
+
+**Tests** : `tests/test_feature_6_2.py`
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_docs_search():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/docs/search?q=circuit")
+        assert r.status_code == 200
+        assert len(r.json()) >= 1
+
+@pytest.mark.asyncio
+async def test_docs_patterns():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        r = await client.get("/api/docs/patterns")
+        assert len(r.json()) >= 25
+```
+
+**Critères** : `[ ]` Recherche OK `[ ]` 25+ patterns `[ ]` 50+ termes glossaire
+
+---
+
+## Feature 6.3 : Polish & Tests Finaux
+> **Fichiers** : Tests de performance et couverture
+
+| # | Tâche | Fichier | Statut |
+|---|-------|---------|--------|
+| 1 | Animations 500ms+ | CSS/JS | [ ] |
+| 2 | Panneaux redimensionnables | `static/js/resize.js` | [ ] |
+| 3 | Taille police ajustable | `app/api/preferences.py` | [ ] |
+| 4 | Couleurs piliers cohérentes | CSS | [ ] |
+| 5 | Couverture > 80% | `pytest --cov` | [ ] |
+| 6 | Tests E2E | `tests/test_e2e.py` | [ ] |
+| 7 | Performance < 2s | `tests/test_performance.py` | [ ] |
+| 8 | Latence sandbox < 100ms | `tests/test_performance.py` | [ ] |
+
+**Tests** : `tests/test_feature_6_3.py`
+```python
+import pytest
+import time
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_page_performance():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        for page in ["/", "/theory/modules/1"]:
+            start = time.time()
+            r = await client.get(page)
+            assert time.time() - start < 2.0
+
+@pytest.mark.asyncio
+async def test_e2e_journey():
+    from app.main import app
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        for m in range(1, 17):
+            await client.post(f"/api/theory/modules/{m}/complete")
+        r = await client.get("/api/progress")
+        assert r.json()["percentage"] == 100
+```
+
+**Critères** : `[ ]` Pages < 2s `[ ]` Sandbox < 100ms `[ ]` Couverture 80% `[ ]` E2E OK
+
+---
+
+# Index des Scénarios Sandbox
+
+| ID | Titre | Feature | Statut |
+|----|-------|---------|--------|
+| INTRO-01 | Explorer l'écosystème | 1.5 | [ ] |
+| INTRO-02 | Cartographie des flux | 1.6 | [ ] |
+| APP-01 | Créer API Quote Engine | 2.2 | [ ] |
+| APP-02 | Gateway multi-partenaires | 2.3 | [ ] |
+| APP-03 | BFF Mobile vs Portail | 2.3 | [ ] |
+| APP-04 | Vue 360° client | 2.4 | [ ] |
+| APP-05 | Migration Strangler Fig | 2.4 | [ ] |
+| EVT-01 | Pub/Sub PolicyCreated | 3.3 | [ ] |
+| EVT-02 | Queue traitement claims | 3.3 | [ ] |
+| EVT-03 | Event Sourcing police | 3.4 | [ ] |
+| EVT-04 | Saga souscription | 3.5 | [ ] |
+| EVT-05 | CQRS reporting | 3.4 | [ ] |
+| EVT-06 | Outbox pattern | 3.5 | [ ] |
+| EVT-07 | Dead Letter handling | 3.5 | [ ] |
+| DATA-01 | ETL batch sinistres | 4.2 | [ ] |
+| DATA-02 | CDC temps réel polices | 4.2 | [ ] |
+| DATA-03 | Pipeline renouvellements | 4.2 | [ ] |
+| DATA-04 | MDM client | 4.2 | [ ] |
+| DATA-05 | Contrôle qualité | 4.2 | [ ] |
+| DATA-06 | Data virtualization | 4.2 | [ ] |
+| DATA-07 | Data lineage | 4.2 | [ ] |
+| CROSS-01 | Panne tarificateur | 5.1 | [ ] |
+| CROSS-02 | Tracing distribué | 5.1 | [ ] |
+| CROSS-03 | Sécuriser gateway | 5.1 | [ ] |
+| CROSS-04 | Écosystème complet | 6.1 | [ ] |
 
 ---
 
