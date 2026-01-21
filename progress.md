@@ -8,10 +8,10 @@
 
 | Métrique | Cible | Actuel |
 |----------|-------|--------|
-| Features complétées | 21 | 19 |
-| Tâches terminées | 181 | 132 |
-| Tests passants | 165 | 181 |
-| Couverture code | >80% | ~65% |
+| Features complétées | 21 | 21 |
+| Tâches terminées | 181 | 144 |
+| Tests passants | 165 | 199 |
+| Couverture code | >80% | ~70% |
 
 ---
 
@@ -668,18 +668,18 @@ async def test_saga_compensation():
 
 ---
 
-# Phase 4 - Pilier Données 📊
+# Phase 4 - Pilier Données 📊 ✅
 
-## Feature 4.1 : ETL & CDC
+## Feature 4.1 : ETL & CDC ✅
 > **Fichiers** : `app/integration/data/etl_pipeline.py`, `app/integration/data/cdc_simulator.py`
 
 | # | Tâche | Fichier | Statut |
 |---|-------|---------|--------|
-| 1 | ETL Extract | `app/integration/data/etl_pipeline.py` | [ ] |
-| 2 | ETL Transform | `app/integration/data/etl_pipeline.py` | [ ] |
-| 3 | ETL Load | `app/integration/data/etl_pipeline.py` | [ ] |
-| 4 | CDC Capture | `app/integration/data/cdc_simulator.py` | [ ] |
-| 5 | CDC Publish | `app/integration/data/cdc_simulator.py` | [ ] |
+| 1 | ETL Extract | `app/integration/data/etl_pipeline.py` | [x] |
+| 2 | ETL Transform | `app/integration/data/etl_pipeline.py` | [x] |
+| 3 | ETL Load | `app/integration/data/etl_pipeline.py` | [x] |
+| 4 | CDC Capture | `app/integration/data/cdc_simulator.py` | [x] |
+| 5 | CDC Publish | `app/integration/data/cdc_simulator.py` | [x] |
 
 **Tests** : `tests/test_feature_4_1.py`
 ```python
@@ -702,22 +702,22 @@ async def test_cdc_capture():
     assert changes[0]["operation"] == "UPDATE"
 ```
 
-**Critères** : `[ ]` ETL complet `[ ]` CDC capture `[ ]` CDC publie
+**Critères** : `[x]` ETL complet `[x]` CDC capture `[x]` CDC publie
 
 ---
 
-## Feature 4.2 : Modules 9-11 Data
+## Feature 4.2 : Modules 9-11 Data ✅
 > **Fichiers** : `app/theory/content/09_etl_batch/`, `10_cdc_streaming/`, `11_data_quality/`
 
 | # | Tâche | Fichier | Statut |
 |---|-------|---------|--------|
-| 1 | Contenu Module 9 ETL | `app/theory/content/09_etl_batch/` | [ ] |
-| 2 | Contenu Module 10 CDC | `app/theory/content/10_cdc_streaming/` | [ ] |
-| 3 | Contenu Module 11 Quality | `app/theory/content/11_data_quality/` | [ ] |
-| 4 | Data Quality checks | `app/integration/data/data_quality.py` | [ ] |
-| 5 | MDM golden record | `app/integration/data/mdm.py` | [ ] |
-| 6 | Data Lineage | `app/integration/data/lineage.py` | [ ] |
-| 7 | Scénarios DATA-01 à DATA-07 | `app/sandbox/scenarios/data_*.py` | [ ] |
+| 1 | Contenu Module 9 ETL | `app/theory/content/09_etl_batch/` | [x] |
+| 2 | Contenu Module 10 CDC | `app/theory/content/10_cdc_streaming/` | [x] |
+| 3 | Contenu Module 11 Quality | `app/theory/content/11_data_quality/` | [x] |
+| 4 | Data Quality checks | `app/integration/data/data_quality.py` | [x] |
+| 5 | MDM golden record | `app/integration/data/mdm.py` | [x] |
+| 6 | Data Lineage | `app/integration/data/lineage.py` | [x] |
+| 7 | Scénarios DATA-01 à DATA-07 | `app/sandbox/scenarios/__init__.py` | [x] |
 
 **Tests** : `tests/test_feature_4_2.py`
 ```python
@@ -741,7 +741,7 @@ async def test_data_scenarios():
             assert r.status_code == 200
 ```
 
-**Critères** : `[ ]` Modules 9-11 `[ ]` Data Quality `[ ]` MDM `[ ]` Lineage `[ ]` 7 scénarios
+**Critères** : `[x]` Modules 9-11 `[x]` Data Quality `[x]` MDM `[x]` Lineage `[x]` 7 scénarios
 
 ---
 
@@ -921,13 +921,13 @@ async def test_e2e_journey():
 | EVT-05 | CQRS reporting | 3.4 | [ ] |
 | EVT-06 | Outbox pattern | 3.5 | [ ] |
 | EVT-07 | Dead Letter handling | 3.5 | [ ] |
-| DATA-01 | ETL batch sinistres | 4.2 | [ ] |
-| DATA-02 | CDC temps réel polices | 4.2 | [ ] |
-| DATA-03 | Pipeline renouvellements | 4.2 | [ ] |
-| DATA-04 | MDM client | 4.2 | [ ] |
-| DATA-05 | Contrôle qualité | 4.2 | [ ] |
-| DATA-06 | Data virtualization | 4.2 | [ ] |
-| DATA-07 | Data lineage | 4.2 | [ ] |
+| DATA-01 | ETL batch sinistres | 4.2 | [x] |
+| DATA-02 | CDC temps réel polices | 4.2 | [x] |
+| DATA-03 | Pipeline renouvellements | 4.2 | [x] |
+| DATA-04 | MDM client | 4.2 | [x] |
+| DATA-05 | Contrôle qualité | 4.2 | [x] |
+| DATA-06 | Data virtualization | 4.2 | [x] |
+| DATA-07 | Data lineage | 4.2 | [x] |
 | CROSS-01 | Panne tarificateur | 5.1 | [ ] |
 | CROSS-02 | Tracing distribué | 5.1 | [ ] |
 | CROSS-03 | Sécuriser gateway | 5.1 | [ ] |
