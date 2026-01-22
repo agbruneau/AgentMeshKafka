@@ -11,7 +11,7 @@ Le chapitre précédent a posé le diagnostic : l'entreprise contemporaine souff
 
 Ce deuxième chapitre poursuit trois objectifs. Premièrement, il clarifie la distinction fondamentale entre l'interopérabilité technique et l'interopérabilité sémantique, deux dimensions complémentaires mais distinctes du problème. Deuxièmement, il expose les contraintes théoriques incontournables — le théorème CAP et le couplage spatio-temporel — qui définissent l'espace des possibles en matière d'intégration distribuée. Troisièmement, il analyse les modèles de gouvernance qui déterminent comment les organisations orchestrent leurs efforts d'intégration, du centralisme rigide de l'Enterprise Service Bus (ESB) à la décentralisation radicale des architectures orientées microservices.
 
-Ces fondements théoriques ne sont pas de simples curiosités académiques. Ils constituent le socle sur lequel repose la thèse centrale de cette monographie : l'interopérabilité forme un continuum allant du couplage fort au découplage maximal, et chaque position sur ce spectre implique des compromis explicites. Comprendre ces compromis permet de faire des choix éclairés plutôt que de subir les conséquences imprévues de décisions prises à l'aveugle.
+Ces fondements théoriques ne sont pas de simples curiosités académiques. Ils constituent le socle sur lequel repose la thèse centrale de cet essai : l'interopérabilité forme un continuum allant du couplage fort au découplage maximal, et chaque position sur ce spectre implique des compromis explicites. Comprendre ces compromis permet de faire des choix éclairés plutôt que de subir les conséquences imprévues de décisions prises à l'aveugle.
 
 Le parcours de ce chapitre prépare directement l'exploration des trois domaines d'intégration qui structurent la suite de l'ouvrage. L'intégration des applications (le Verbe) privilégie le couplage synchrone et l'orchestration explicite. L'intégration des données (le Nom) se concentre sur la cohérence de l'état et l'accessibilité de l'information. L'intégration des événements (le Signal) maximise le découplage temporel et l'autonomie des composants. Chacune de ces approches mobilise différemment les concepts théoriques exposés ici, et c'est précisément cette compréhension qui permet de les combiner judicieusement dans une stratégie hybride.
 
@@ -171,7 +171,7 @@ La publication/souscription (quadrant inférieur droit) minimise les deux formes
 
 ### 2.2.5 Progression vers le découplage
 
-La thèse centrale de cette monographie peut désormais être reformulée en termes de couplage : le continuum d'intégration App → Data → Event correspond à une progression vers un découplage croissant, tant spatial que temporel.
+La thèse centrale de cet essai peut désormais être reformulée en termes de couplage : le continuum d'intégration App → Data → Event correspond à une progression vers un découplage croissant, tant spatial que temporel.
 
 L'intégration des applications (le Verbe) opère principalement dans le quadrant du couplage temporel fort. Les API synchrones orchestrent des interactions en temps réel où la réponse du serveur conditionne la suite du traitement client. Des patrons comme le Circuit Breaker ou le Timeout (chapitre VII) visent précisément à gérer les conséquences de ce couplage temporel lorsque les dépendances défaillent.
 
@@ -285,7 +285,7 @@ Le chapitre VI approfondira ces questions en présentant les standards (OpenAPI,
 
 ## 2.4 Le Continuum d'Intégration : Synthèse Théorique
 
-Les concepts développés dans ce chapitre convergent vers une vision unifiée de l'intégration que nous appelons le continuum d'intégration. Cette synthèse fournit le cadre conceptuel qui structure la suite de la monographie et offre aux architectes un langage commun pour discuter des choix d'intégration.
+Les concepts développés dans ce chapitre convergent vers une vision unifiée de l'intégration que nous appelons le continuum d'intégration. Cette synthèse fournit le cadre conceptuel qui structure la suite de l'essai et offre aux architectes un langage commun pour discuter des choix d'intégration.
 
 ### 2.4.1 Trois dimensions, un spectre
 
@@ -310,7 +310,7 @@ L'intégration des événements (le Signal) se situe du côté du découplage ma
 
 ### 2.4.3 L'hybridation comme nécessité
 
-La thèse centrale de cette monographie affirme qu'aucune position unique sur le continuum ne convient à tous les cas d'usage. Une stratégie d'intégration mature doit combiner les trois domaines selon les exigences de chaque interaction. Cette hybridation n'est pas un aveu d'échec ou un compromis ; c'est la reconnaissance que différentes situations appellent différentes solutions.
+La thèse centrale de cet essai affirme qu'aucune position unique sur le continuum ne convient à tous les cas d'usage. Une stratégie d'intégration mature doit combiner les trois domaines selon les exigences de chaque interaction. Cette hybridation n'est pas un aveu d'échec ou un compromis ; c'est la reconnaissance que différentes situations appellent différentes solutions.
 
 Un processus Order-to-Cash, que nous étudierons en détail au chapitre X, illustre cette hybridation. La prise de commande requiert une validation synchrone du stock disponible (intégration des applications). La persistance de la commande et la propagation vers les systèmes aval utilisent le Change Data Capture (intégration des données). L'orchestration du flux logistique s'appuie sur une chorégraphie d'événements (intégration des événements). Les tableaux de bord temps réel combinent des vues matérialisées (données) alimentées par des flux d'événements.
 
@@ -331,7 +331,7 @@ Le continuum facilite également la documentation des décisions architecturales
 
 ## Résumé
 
-Ce chapitre a établi les fondements théoriques qui guideront nos choix architecturaux tout au long de cette monographie. Récapitulons les concepts clés et leurs implications pratiques.
+Ce chapitre a établi les fondements théoriques qui guideront nos choix architecturaux tout au long de cet essai. Récapitulons les concepts clés et leurs implications pratiques.
 
 **Interopérabilité technique et sémantique.** L'interopérabilité se déploie sur deux niveaux complémentaires. L'interopérabilité technique assure que les systèmes peuvent échanger des données via des protocoles et formats communs (HTTP, JSON, gRPC, Avro). L'interopérabilité sémantique assure que les systèmes interprètent ces données de manière cohérente grâce à des vocabulaires partagés et des ontologies. Les deux niveaux sont nécessaires ; le premier sans le second conduit à des échanges de données incomprises, source d'erreurs métier coûteuses.
 

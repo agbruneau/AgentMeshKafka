@@ -17,7 +17,7 @@ Les dix chapitres précédents ont tracé un parcours ambitieux à travers le pa
 
 Ce chapitre conclusif poursuit un double objectif. D'abord, dresser un bilan stratégique qui valide — ou nuance — la thèse initiale à la lumière du parcours accompli. Ensuite, et surtout, ouvrir la perspective vers un nouveau paradigme qui émerge à l'intersection de l'interopérabilité mature et de l'intelligence artificielle générative : l'Entreprise Agentique.
 
-Cette notion d'Entreprise Agentique n'est pas une spéculation futuriste déconnectée des réalités actuelles. Elle constitue l'aboutissement logique des tendances que nous avons observées tout au long de cette monographie : la décentralisation de l'intelligence vers les extrémités du réseau, l'automatisation croissante des décisions d'intégration, la capacité des systèmes à s'adapter dynamiquement aux changements de contexte. Les fondations architecturales que nous avons posées — APIs bien contractualisées, flux de données gouvernés, événements sémantiquement riches — sont précisément celles sur lesquelles les agents autonomes peuvent opérer efficacement.
+Cette notion d'Entreprise Agentique n'est pas une spéculation futuriste déconnectée des réalités actuelles. Elle constitue l'aboutissement logique des tendances que nous avons observées tout au long de cet essai : la décentralisation de l'intelligence vers les extrémités du réseau, l'automatisation croissante des décisions d'intégration, la capacité des systèmes à s'adapter dynamiquement aux changements de contexte. Les fondations architecturales que nous avons posées — APIs bien contractualisées, flux de données gouvernés, événements sémantiquement riches — sont précisément celles sur lesquelles les agents autonomes peuvent opérer efficacement.
 
 Ce chapitre final s'adresse particulièrement aux dirigeants technologiques et aux architectes d'entreprise qui doivent anticiper les transformations à venir tout en gérant les réalités présentes. Il ne s'agit pas de promettre une révolution imminente qui rendrait obsolètes les investissements actuels, mais de montrer comment ces investissements préparent un avenir où l'orchestration intelligente des flux d'intégration deviendra un avantage concurrentiel décisif.
 
@@ -40,7 +40,7 @@ Troisièmement, la progression des chapitres III à V a montré que les trois do
 
 ### 11.1.2 La Fin de l'Intégration Binaire
 
-L'un des enseignements majeurs de cette monographie est le passage du « projet d'intégration » au « produit d'intégration ». L'approche traditionnelle traitait chaque besoin d'intégration comme un projet ponctuel : définir les exigences, développer l'interface, déployer, passer à autre chose. Cette logique de projet aboutissait à l'« architecture spaghetti » décrite au chapitre I — un enchevêtrement de connexions point-à-point, mal documentées, difficiles à maintenir.
+L'un des enseignements majeurs de cet essai est le passage du « projet d'intégration » au « produit d'intégration ». L'approche traditionnelle traitait chaque besoin d'intégration comme un projet ponctuel : définir les exigences, développer l'interface, déployer, passer à autre chose. Cette logique de projet aboutissait à l'« architecture spaghetti » décrite au chapitre I — un enchevêtrement de connexions point-à-point, mal documentées, difficiles à maintenir.
 
 L'approche moderne traite l'intégration comme un produit : une plateforme évolutive, documentée, gouvernée, qui expose des capacités réutilisables. L'API Gateway n'est pas un projet à terminer mais un produit à améliorer continuellement. Le bus d'événements n'est pas une infrastructure à installer une fois mais un service à opérer avec des SLA, des métriques et une roadmap d'évolution. Le Schema Registry n'est pas un outil technique mais un actif de gouvernance qui accumule de la valeur au fil du temps.
 
@@ -94,7 +94,7 @@ L'Entreprise Agentique se distingue par quatre caractéristiques fondamentales q
 
 ### 11.2.3 Implications Architecturales
 
-L'avènement de l'Entreprise Agentique transforme la signification des éléments architecturaux que nous avons étudiés tout au long de cette monographie.
+L'avènement de l'Entreprise Agentique transforme la signification des éléments architecturaux que nous avons étudiés tout au long de cet essai.
 
  **L'API devient une interface de négociation** . Dans l'architecture traditionnelle, une API est un contrat statique : voici les opérations disponibles, voici les paramètres attendus, voici les réponses possibles. Pour un agent, l'API devient un terrain de négociation où il peut explorer les capacités disponibles, découvrir les options pertinentes et construire dynamiquement ses requêtes. Les spécifications OpenAPI ne sont plus seulement de la documentation pour les développeurs humains ; elles deviennent du « carburant » pour les agents qui les parsent, les interprètent et les exploitent programmatiquement. Un agent face à une nouvelle API peut lire sa spécification, comprendre ses capacités et l'intégrer à son répertoire d'actions sans intervention humaine.
 
@@ -181,7 +181,7 @@ Le **Prompt Engineer spécialisé intégration** développe et optimise les prom
 L'**Agent Governance Officer** définit et fait respecter les politiques encadrant le comportement des agents. Ce rôle, à la frontière du technique et de la conformité, établit les « constitutions agentiques », audite le comportement des agents et s'assure que les risques sont maîtrisés.
 
 > **Perspective stratégique**
-> Ces nouveaux rôles ne remplacent pas les rôles existants mais les complètent et les font évoluer. Un architecte d'intégration qui maîtrise les patrons présentés dans cette monographie est bien positionné pour évoluer vers l'Agent Design. Un ingénieur SRE qui maîtrise l'observabilité est naturellement préparé pour l'AgentOps. Les compétences acquises restent pertinentes ; elles s'enrichissent de nouvelles dimensions.
+> Ces nouveaux rôles ne remplacent pas les rôles existants mais les complètent et les font évoluer. Un architecte d'intégration qui maîtrise les patrons présentés dans cet essai est bien positionné pour évoluer vers l'Agent Design. Un ingénieur SRE qui maîtrise l'observabilité est naturellement préparé pour l'AgentOps. Les compétences acquises restent pertinentes ; elles s'enrichissent de nouvelles dimensions.
 
 ### 11.4.3 Gouvernance des Agents
 
@@ -275,7 +275,7 @@ Premièrement, reconnaître que la capacité d'intégration détermine la capaci
 
 Deuxièmement, anticiper l'évolution vers l'Entreprise Agentique. Sans nécessairement déployer des agents immédiatement, s'assurer que les architectures actuelles sont « agent-ready » : APIs bien documentées que des agents peuvent consommer, événements sémantiquement riches que des agents peuvent interpréter, données gouvernées que des agents peuvent exploiter en confiance.
 
-Troisièmement, développer les compétences humaines. Les technologies évoluent rapidement, mais les principes fondamentaux — couplage, cohérence, gouvernance — restent pertinents. Investir dans la formation des équipes aux fondamentaux présentés dans cette monographie les prépare aux évolutions futures, quelles que soient les technologies spécifiques qui émergeront.
+Troisièmement, développer les compétences humaines. Les technologies évoluent rapidement, mais les principes fondamentaux — couplage, cohérence, gouvernance — restent pertinents. Investir dans la formation des équipes aux fondamentaux présentés dans cet essai les prépare aux évolutions futures, quelles que soient les technologies spécifiques qui émergeront.
 
 ### 11.6.3 Pour les Équipes d'Ingénierie
 
@@ -301,7 +301,7 @@ Troisièmement, investir dans les tests d'intégration et les contrats. Les Cons
 
 **Points de vigilance.** Les risques incluent la complexité accidentelle (agents pour des problèmes simples), le coût de la cohérence distribuée, la surface d'attaque élargie, l'opacité décisionnelle des modèles, la dérive comportementale et la dépendance technologique. Chaque risque appelle des stratégies de mitigation spécifiques.
 
-**L'interopérabilité demeure fondamentale.** Que les flux d'intégration soient orchestrés par des humains, des automates traditionnels ou des agents cognitifs, les principes établis dans cette monographie restent pertinents. Une Entreprise Agentique efficace repose sur des APIs bien contractualisées, des données gouvernées, des événements sémantiquement riches et une observabilité de bout en bout. Les investissements d'aujourd'hui dans ces fondations préparent les possibilités de demain.
+**L'interopérabilité demeure fondamentale.** Que les flux d'intégration soient orchestrés par des humains, des automates traditionnels ou des agents cognitifs, les principes établis dans cet essai restent pertinents. Une Entreprise Agentique efficace repose sur des APIs bien contractualisées, des données gouvernées, des événements sémantiquement riches et une observabilité de bout en bout. Les investissements d'aujourd'hui dans ces fondations préparent les possibilités de demain.
 
 ---
 
@@ -309,7 +309,7 @@ Troisièmement, investir dans les tests d'intégration et les contrats. Les Cons
 
 L'interopérabilité en écosystème d'entreprise n'est pas un problème à résoudre une fois pour toutes mais une capacité à cultiver continuellement. Les technologies évoluent, les besoins métier changent, les partenaires et clients attendent des expériences toujours plus fluides. L'organisation qui maîtrise l'art de faire dialoguer ses systèmes — entre eux et avec le monde extérieur — dispose d'un avantage que ses concurrents peinent à répliquer.
 
-Cette monographie a proposé un cadre — le continuum d'intégration — et des outils — les patrons architecturaux — pour développer cette maîtrise. Elle a également ouvert une perspective — l'Entreprise Agentique — qui dessine l'horizon vers lequel nous nous dirigeons. Cet horizon n'est pas une destination à atteindre mais une direction à suivre, une aspiration qui guide les choix quotidiens.
+Cet essai a proposé un cadre — le continuum d'intégration — et des outils — les patrons architecturaux — pour développer cette maîtrise. Elle a également ouvert une perspective — l'Entreprise Agentique — qui dessine l'horizon vers lequel nous nous dirigeons. Cet horizon n'est pas une destination à atteindre mais une direction à suivre, une aspiration qui guide les choix quotidiens.
 
 L'architecte, le développeur, le dirigeant qui ont accompagné ce parcours sont maintenant équipés pour prendre des décisions éclairées. Ils savent quand privilégier le couplage fort et quand accepter le découplage. Ils connaissent les patrons adaptés à chaque contexte. Ils anticipent les évolutions à venir. Surtout, ils comprennent que l'interopérabilité n'est pas une destination mais un voyage — un voyage qui se poursuit à chaque nouvelle intégration, chaque nouvelle interface, chaque nouvel agent.
 
@@ -317,4 +317,4 @@ Le continuum d'intégration, du couplage fort au découplage maximal, reste la b
 
 ---
 
-*Fin de la Monographie*
+*Fin de l'Essai*

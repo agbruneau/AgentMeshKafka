@@ -79,7 +79,7 @@ La gestion de cette tension passe par des contrats explicites entre producteurs 
 
 ## 4.2 Patrons d'Architecture pour l'Intégration des Données
 
-Les sept patrons suivants constituent le catalogue essentiel de l'intégration des données. Ils ne sont pas mutuellement exclusifs; une architecture mature combine généralement plusieurs d'entre eux selon les contextes. L'ordre de présentation suit une logique de découplage croissant, en cohérence avec le continuum App → Data → Event de cette monographie.
+Les sept patrons suivants constituent le catalogue essentiel de l'intégration des données. Ils ne sont pas mutuellement exclusifs; une architecture mature combine généralement plusieurs d'entre eux selon les contextes. L'ordre de présentation suit une logique de découplage croissant, en cohérence avec le continuum App → Data → Event de cet essai.
 
 ### 4.2.1 Change Data Capture (CDC)
 

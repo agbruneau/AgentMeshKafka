@@ -512,7 +512,7 @@ L'Event Mesh abstrait cette hétérogénéité en offrant une couche unifiée de
 
 Solace PubSub+ et Confluent (avec son écosystème Kafka) sont les principaux fournisseurs d'Event Mesh. Les solutions infonuagiques natives (AWS EventBridge, Azure Event Grid) offrent des fonctionnalités similaires dans leurs écosystèmes respectifs.
 
-L'Event Mesh complète le Service Mesh : le premier gère le trafic asynchrone (événements), le second le trafic synchrone (requêtes-réponses). Ensemble, ils couvrent l'ensemble du spectre de communication d'une architecture hybride, tel que présenté dans le continuum d'intégration de cette monographie.
+L'Event Mesh complète le Service Mesh : le premier gère le trafic asynchrone (événements), le second le trafic synchrone (requêtes-réponses). Ensemble, ils couvrent l'ensemble du spectre de communication d'une architecture hybride, tel que présenté dans le continuum d'intégration de cet essai.
 
 ---
 

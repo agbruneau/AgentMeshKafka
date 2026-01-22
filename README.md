@@ -2,11 +2,11 @@
 
 **Convergence des Architectures d'Intégration — Du Couplage Fort au Découplage Maximal**
 
-Une monographie technique explorant le continuum d'intégration d'entreprise à travers trois domaines : Applications, Données et Événements.
+Un essai technique explorant le continuum d'intégration d'entreprise à travers trois domaines : Applications, Données et Événements.
 
 ## Aperçu
 
-Ce projet est un site web éducatif présentant une monographie complète sur l'interopérabilité en contexte d'entreprise. Le contenu est organisé en 11 chapitres et des annexes, couvrant les fondements théoriques, les patrons d'architecture et les perspectives futures de l'intégration d'entreprise.
+Ce projet est un site web éducatif présentant un essai complète sur l'interopérabilité en contexte d'entreprise. Le contenu est organisé en 11 chapitres et des annexes, couvrant les fondements théoriques, les patrons d'architecture et les perspectives futures de l'intégration d'entreprise.
 
 ### Thèse Centrale
 

@@ -16,7 +16,7 @@ description: "Glossaire technique, comparaison des technologies, checklist de ma
 
 # Annexe A — Glossaire des Termes Techniques
 
-Ce glossaire rassemble les définitions des termes clés utilisés tout au long de la monographie. Les entrées sont classées par ordre alphabétique et incluent des références aux chapitres où le concept est approfondi.
+Ce glossaire rassemble les définitions des termes clés utilisés tout au long de l'essai. Les entrées sont classées par ordre alphabétique et incluent des références aux chapitres où le concept est approfondi.
 
 ---
 
@@ -663,7 +663,7 @@ Les écarts significatifs entre domaines révèlent les axes d'amélioration pri
 
 # Annexe D — Références Bibliographiques et Ressources
 
-Cette annexe recense les sources de référence utilisées dans cette monographie, organisées par thématique. Elle inclut les ouvrages fondateurs, les publications industrielles, la documentation technique officielle et les ressources d'apprentissage complémentaires.
+Cette annexe recense les sources de référence utilisées dans cet essai, organisées par thématique. Elle inclut les ouvrages fondateurs, les publications industrielles, la documentation technique officielle et les ressources d'apprentissage complémentaires.
 
 ---
 
@@ -672,7 +672,7 @@ Cette annexe recense les sources de référence utilisées dans cette monographi
 ### Architecture et Patrons de Conception
 
 **Gamma, E., Helm, R., Johnson, R., & Vlissides, J.** (1994).  *Design Patterns: Elements of Reusable Object-Oriented Software* . Addison-Wesley.
-L'ouvrage fondateur sur les patrons de conception, établissant le vocabulaire et la méthodologie utilisés dans cette monographie.
+L'ouvrage fondateur sur les patrons de conception, établissant le vocabulaire et la méthodologie utilisés dans cet essai.
 
 **Hohpe, G., & Woolf, B.** (2003).  *Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions* . Addison-Wesley.
 Référence incontournable des patrons d'intégration par messagerie. Bien que daté technologiquement, les patrons fondamentaux demeurent pertinents.

@@ -17,7 +17,7 @@ description: "Application concrète des trois domaines sur un processus métier 
 
 Les chapitres précédents ont établi un cadre conceptuel riche : les fondements théoriques de l'interopérabilité (chapitre II), les patrons d'intégration des applications (chapitre III), des données (chapitre IV) et des événements (chapitre V), les standards d'interface (chapitre VI), les mécanismes de résilience et d'observabilité (chapitre VII), ainsi que les technologies de collaboration et d'automatisation (chapitre VIII). Le chapitre IX a proposé une synthèse sous forme d'architecture de référence convergente. Il est maintenant temps de confronter ces concepts à la réalité d'un processus métier complet.
 
-Le processus « Order-to-Cash » (O2C) — de la prise de commande à l'encaissement — constitue le fil conducteur idéal pour cette démonstration. Ce processus traverse l'ensemble de l'entreprise : il débute par une interaction client (vente), mobilise la logistique (expédition), implique la finance (facturation, paiement) et alimente l'analytique (tableaux de bord, prévisions). Il requiert simultanément des interactions synchrones (validation de stock en temps réel), des propagations de données (mise à jour des inventaires) et des orchestrations événementielles (coordination des étapes logistiques). En somme, il incarne parfaitement le continuum d'intégration App → Data → Event défendu par cette monographie.
+Le processus « Order-to-Cash » (O2C) — de la prise de commande à l'encaissement — constitue le fil conducteur idéal pour cette démonstration. Ce processus traverse l'ensemble de l'entreprise : il débute par une interaction client (vente), mobilise la logistique (expédition), implique la finance (facturation, paiement) et alimente l'analytique (tableaux de bord, prévisions). Il requiert simultanément des interactions synchrones (validation de stock en temps réel), des propagations de données (mise à jour des inventaires) et des orchestrations événementielles (coordination des étapes logistiques). En somme, il incarne parfaitement le continuum d'intégration App → Data → Event défendu par cet essai.
 
 Ce chapitre adopte une structure en quatre phases qui reflètent la progression naturelle du processus métier. La première phase,  *Capture* , illustre l'intégration des applications avec ses patrons de couplage fort : API Gateway, Backend for Frontend, Circuit Breaker. La deuxième phase,  *Persistance* , démontre l'intégration des données via le Change Data Capture et le Transactional Outbox. La troisième phase,  *Orchestration* , met en œuvre l'intégration des événements avec le Saga Pattern et la chorégraphie d'événements. La quatrième phase,  *Reporting* , combine les trois domaines pour alimenter des vues matérialisées et assurer la traçabilité de bout en bout.
 
@@ -957,7 +957,7 @@ Le déploiement de cette architecture a généré plusieurs enseignements que Te
 
 ## Conclusion et Transition
 
-Ce chapitre a démontré l'application concrète des patrons d'intégration présentés tout au long de cette monographie. Le processus Order-to-Cash de TechnoCommerce illustre comment les trois domaines d'intégration — applications, données, événements — convergent pour former un système cohérent, résilient et observable.
+Ce chapitre a démontré l'application concrète des patrons d'intégration présentés tout au long de cet essai. Le processus Order-to-Cash de TechnoCommerce illustre comment les trois domaines d'intégration — applications, données, événements — convergent pour former un système cohérent, résilient et observable.
 
 La phase de Capture a mobilisé l'intégration des applications avec ses patrons de couplage synchrone : BFF pour l'adaptation au canal, API Gateway pour les préoccupations transversales, Aggregator pour la composition, Circuit Breaker pour la résilience. Ces patrons répondent à l'exigence d'immédiateté de l'expérience utilisateur.
 
@@ -969,7 +969,7 @@ La phase de Reporting a combiné les trois domaines : les événements alimenten
 
 Au-delà des patrons techniques, cette étude de cas souligne l'importance de la cohérence architecturale. Les choix ne sont pas isolés ; ils forment un système où chaque décision influence les autres. La chorégraphie choisie pour la saga impose l'idempotence des consommateurs. Le CDC requiert une gestion soigneuse des schémas. Les vues matérialisées dépendent de la fiabilité du flux événementiel.
 
-Le chapitre XI, conclusion de cette monographie, élargira la perspective vers l'Entreprise Agentique. Les patrons d'intégration décrits ici constituent les fondations sur lesquelles les agents IA pourront opérer : des APIs bien définies, des données cohérentes, des événements fiables. L'interopérabilité maîtrisée n'est pas une fin en soi ; elle est le substrat qui rend possible l'automatisation intelligente de demain.
+Le chapitre XI, conclusion de cet essai, élargira la perspective vers l'Entreprise Agentique. Les patrons d'intégration décrits ici constituent les fondations sur lesquelles les agents IA pourront opérer : des APIs bien définies, des données cohérentes, des événements fiables. L'interopérabilité maîtrisée n'est pas une fin en soi ; elle est le substrat qui rend possible l'automatisation intelligente de demain.
 
 ---
 
