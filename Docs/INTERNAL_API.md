@@ -1,7 +1,7 @@
 # Internal API Documentation
 
-> **Version**: 1.0.0
-> **Last Updated**: December 2025
+> **Version**: 1.1.0
+> **Last Updated**: January 2026
 
 ## Overview
 
@@ -92,6 +92,70 @@ type ProgressReporter func(progress float64)
 reporter := func(progress float64) {
     fmt.Printf("Progress: %.2f%%\n", progress*100)
 }
+```
+
+---
+
+### `orchestration.ProgressReporter`
+
+Interface for displaying calculation progress in the orchestration layer. This interface decouples the orchestration layer from the presentation layer, following Clean Architecture principles.
+
+**Location**: `internal/orchestration/interfaces.go`
+
+```go
+type ProgressReporter interface {
+    // DisplayProgress starts displaying progress updates from the channel.
+    DisplayProgress(wg *sync.WaitGroup, progressChan <-chan fibonacci.ProgressUpdate,
+                    numCalculators int, out io.Writer)
+}
+```
+
+**Implementations**:
+- `NullProgressReporter`: No-op implementation that drains the channel silently (for quiet mode/testing)
+- `CLIProgressReporter`: CLI implementation with spinner and progress bar (in `internal/cli/presenter.go`)
+
+**Usage**:
+```go
+var progressReporter orchestration.ProgressReporter
+if quietMode {
+    progressReporter = orchestration.NullProgressReporter{}
+} else {
+    progressReporter = cli.CLIProgressReporter{}
+}
+results := orchestration.ExecuteCalculations(ctx, calculators, cfg, progressReporter, out)
+```
+
+---
+
+### `orchestration.ResultPresenter`
+
+Interface for presenting calculation results. This interface allows different output formats (CLI, JSON, etc.) without modifying the orchestration logic.
+
+**Location**: `internal/orchestration/interfaces.go`
+
+```go
+type ResultPresenter interface {
+    // PresentComparisonTable displays the comparison summary table.
+    PresentComparisonTable(results []CalculationResult, out io.Writer)
+
+    // PresentResult displays the final calculation result.
+    PresentResult(result CalculationResult, n uint64, verbose, details, concise bool, out io.Writer)
+
+    // FormatDuration formats a duration for display.
+    FormatDuration(d time.Duration) string
+
+    // HandleError handles calculation errors and returns an exit code.
+    HandleError(err error, duration time.Duration, out io.Writer) int
+}
+```
+
+**Implementations**:
+- `CLIResultPresenter`: CLI implementation with colored, formatted output (in `internal/cli/presenter.go`)
+
+**Usage**:
+```go
+presenter := cli.CLIResultPresenter{}
+exitCode := orchestration.AnalyzeComparisonResults(results, cfg, presenter, out)
 ```
 
 ---
@@ -306,6 +370,48 @@ The Decorator pattern is used to add cross-cutting concerns to calculators.
 
 ---
 
+### Dependency Inversion Pattern
+
+The Dependency Inversion pattern is used to decouple the orchestration layer from the CLI layer, following Clean Architecture principles.
+
+**Components**:
+- `orchestration.ProgressReporter`: Interface for progress display
+- `orchestration.ResultPresenter`: Interface for result presentation
+- `cli.CLIProgressReporter`: CLI implementation of ProgressReporter
+- `cli.CLIResultPresenter`: CLI implementation of ResultPresenter
+- `orchestration.NullProgressReporter`: Null Object for quiet mode/testing
+
+**Flow**:
+```
+App Layer (internal/app)
+    ↓ injects
+Orchestration Layer (internal/orchestration)
+    ↓ uses interfaces
+CLI Layer (internal/cli) ← implements interfaces
+```
+
+**Benefits**:
+- Clean Architecture compliance: orchestration does not import CLI
+- Testability: interfaces can be easily mocked
+- Flexibility: alternative presenters (JSON, GUI) can be added
+- Null Object pattern: `NullProgressReporter` simplifies quiet mode
+
+**Example**:
+```go
+// App layer creates and injects the appropriate presenter
+var progressReporter orchestration.ProgressReporter
+if quietMode {
+    progressReporter = orchestration.NullProgressReporter{}
+} else {
+    progressReporter = cli.CLIProgressReporter{}
+}
+
+// Orchestration layer uses the interface
+results := orchestration.ExecuteCalculations(ctx, calculators, cfg, progressReporter, out)
+```
+
+---
+
 ## Types and Structures
 
 ### `Options`
@@ -483,7 +589,7 @@ package main
 
 import (
     "context"
-    "fmt"
+    "github.com/agbru/fibcalc/internal/cli"
     "github.com/agbru/fibcalc/internal/fibonacci"
     "github.com/agbru/fibcalc/internal/orchestration"
     "github.com/agbru/fibcalc/internal/config"
@@ -495,20 +601,24 @@ func main() {
     cfg := config.AppConfig{
         N: 1000000,
     }
-    
+
     // Get all calculators
     calculators := []fibonacci.Calculator{}
     for _, name := range factory.List() {
         calc, _ := factory.Get(name)
         calculators = append(calculators, calc)
     }
-    
+
+    // Create progress reporter (use NullProgressReporter for quiet mode)
+    progressReporter := cli.CLIProgressReporter{}
+
     // Execute calculations in parallel
     ctx := context.Background()
-    results := orchestration.ExecuteCalculations(ctx, calculators, cfg, os.Stdout)
-    
-    // Analyze results
-    exitCode := orchestration.AnalyzeComparisonResults(results, cfg, os.Stdout)
+    results := orchestration.ExecuteCalculations(ctx, calculators, cfg, progressReporter, os.Stdout)
+
+    // Analyze results with CLI presenter
+    presenter := cli.CLIResultPresenter{}
+    exitCode := orchestration.AnalyzeComparisonResults(results, cfg, presenter, os.Stdout)
     os.Exit(exitCode)
 }
 ```

@@ -44,6 +44,9 @@ This is a high-performance Fibonacci calculator implementing multiple algorithms
 | `internal/service` | Business logic layer |
 | `internal/parallel` | Concurrency utilities |
 | `internal/errors` | Custom error types with standardized exit codes |
+| `internal/app` | Application composition root and lifecycle management |
+| `internal/ui` | Color themes, terminal formatting, NO_COLOR support |
+| `internal/logging` | Structured logging with zerolog adapters |
 
 ### Key Algorithms
 

@@ -64,7 +64,8 @@ FibCalc serves as both a practical high-performance tool and a reference impleme
 
 ### Robust Architecture
 
-- **Clean Architecture**: Strict separation of concerns (Core Logic, Orchestration, Interface, Infrastructure).
+- **Clean Architecture**: Strict separation of concerns (Core Logic, Orchestration, Interface, Infrastructure) with interface-based decoupling.
+- **Interface-Based Decoupling**: The orchestration layer uses `ProgressReporter` and `ResultPresenter` interfaces to avoid depending on CLI, enabling testability and alternative presentations.
 - **Interactive REPL**: A dedicated shell for performing multiple calculations, comparisons, and conversions without reloading the binary.
 - **Modern CLI**: Features progress spinners, ETA calculation, formatted output, and colour themes.
 - **Observability**: Production-grade structured logging (zerolog) and Prometheus metrics.
@@ -162,11 +163,15 @@ graph TD
 | `cmd/fibcalc` | Application composition root and entry point. |
 | `internal/fibonacci` | Core domain logic. Implements the `Calculator` interface and algorithms. |
 | `internal/bigfft` | Specialized FFT arithmetic for `big.Int` with memory pooling. |
-| `internal/orchestration` | Manages concurrent execution and race-safe result aggregation. |
+| `internal/orchestration` | Manages concurrent execution, result aggregation, and defines `ProgressReporter`/`ResultPresenter` interfaces for Clean Architecture decoupling. |
 | `internal/server` | HTTP REST API with rate limiting, security headers, and health checks. |
 | `internal/cli` | REPL, progress bar, spinner, and output formatting (Display*/Format*/Write*). |
 | `internal/calibration` | Auto-tuning logic to find optimal hardware thresholds. |
 | `internal/logging` | Structured logging with zerolog adapters. |
+| `internal/app` | Application composition root, lifecycle management, dependency injection. |
+| `internal/ui` | Color themes, terminal formatting, NO_COLOR environment variable support. |
+| `internal/config` | Configuration parsing, validation, and environment variable support. |
+| `internal/errors` | Custom error types with standardized exit codes. |
 
 ---
 

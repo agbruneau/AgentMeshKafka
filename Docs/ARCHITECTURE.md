@@ -1,7 +1,7 @@
 # Fibonacci Calculator Architecture
 
-> **Version**: 1.1.0  
-> **Last Updated**: December 2025
+> **Version**: 1.2.0
+> **Last Updated**: January 2026
 
 ## Overview
 
@@ -112,11 +112,14 @@ FFT multiplication implementation for `big.Int`:
 
 ### `internal/orchestration`
 
-Concurrent execution management:
+Concurrent execution management with Clean Architecture decoupling:
 
 - Parallel execution of multiple algorithms
 - Result aggregation and comparison
 - Error and timeout handling
+- **`ProgressReporter` interface**: Decouples progress display from orchestration logic
+- **`ResultPresenter` interface**: Decouples result presentation from analysis logic
+- **`NullProgressReporter`**: No-op implementation for quiet mode and testing
 
 ### `internal/calibration`
 
@@ -149,6 +152,9 @@ Command-line user interface:
   - Real-time algorithm comparison
 - Autocompletion script generation (bash, zsh, fish, powershell)
 - `NO_COLOR` environment variable support
+- **Interface Implementations** (`presenter.go`):
+  - `CLIProgressReporter`: Implements `orchestration.ProgressReporter` for CLI progress display
+  - `CLIResultPresenter`: Implements `orchestration.ResultPresenter` for CLI result formatting
 
 ### `internal/config`
 
@@ -216,20 +222,36 @@ Centralised error handling:
 - ✅ Avoids CPU saturation for small N
 - ⚠️ Parallelism disabled when FFT is used (FFT already saturates CPU)
 
+### ADR-005: Interface-Based Decoupling (Orchestration → CLI)
+
+**Context**: The orchestration package was directly importing CLI packages, violating Clean Architecture principles where business logic should not depend on presentation.
+
+**Decision**: Define `ProgressReporter` and `ResultPresenter` interfaces in the orchestration package, with implementations in the CLI package.
+
+**Consequences**:
+
+- ✅ Clean Architecture compliance: orchestration no longer imports CLI
+- ✅ Improved testability: interfaces can be mocked for unit tests
+- ✅ Flexibility: alternative presenters (JSON, GUI) can be easily added
+- ✅ `NullProgressReporter` enables quiet mode without conditionals
+- ⚠️ Slightly more complex initialization in the app layer
+
 ## Data Flow
 
 ### CLI Mode
 
 ```
-1. main() parses arguments → config.AppConfig
-2. If --calibrate: calibration.RunCalibration() and exit
-3. If --auto-calibrate: calibration.AutoCalibrate() updates config
-4. getCalculatorsToRun() selects algorithms
-5. orchestration.ExecuteCalculations() launches parallel calculations
+1. app.New() parses arguments → config.AppConfig
+2. app.Run() dispatches to appropriate mode
+3. If --calibrate: calibration.RunCalibration() and exit
+4. If --auto-calibrate: calibration.AutoCalibrate() updates config
+5. cli.GetCalculatorsToRun() selects algorithms
+6. orchestration.ExecuteCalculations() launches parallel calculations
    - Each Calculator.Calculate() executes in a goroutine
    - Progress updates are sent on a channel
-   - cli.DisplayProgress() displays progress
-6. orchestration.AnalyzeComparisonResults() compares and displays results
+   - ProgressReporter (CLIProgressReporter) displays progress
+7. orchestration.AnalyzeComparisonResults() analyzes results
+   - ResultPresenter (CLIResultPresenter) formats and displays output
 ```
 
 ### Server Mode

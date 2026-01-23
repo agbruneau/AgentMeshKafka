@@ -406,7 +406,9 @@ The server logs all requests:
 
 ## See Also
 
-- [README.md](README.md) - Main documentation
-- [Docs/SECURITY.md](Docs/SECURITY.md) - Complete security policy
-- [Docs/PERFORMANCE.md](Docs/PERFORMANCE.md) - Performance guide
-- [Docs/api/openapi.yaml](Docs/api/openapi.yaml) - OpenAPI specification
+- [README.md](../../README.md) - Main documentation
+- [ARCHITECTURE.md](../ARCHITECTURE.md) - System architecture
+- [INTERNAL_API.md](../INTERNAL_API.md) - Internal API documentation
+- [SECURITY.md](../SECURITY.md) - Complete security policy
+- [PERFORMANCE.md](../PERFORMANCE.md) - Performance guide
+- [openapi.yaml](openapi.yaml) - OpenAPI specification
