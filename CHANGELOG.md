@@ -29,6 +29,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TUI troubleshooting section in TROUBLESHOOTING.md
 - TUI development guidelines in CONTRIBUTING.md
 
+### Fixed
+
+#### TUI Display Improvements
+
+- **Button Navigation**: Added left/right arrow key navigation between Calculate and Compare buttons in input section
+- **Button Focus Indicator**: Both Calculate and Compare buttons now correctly display focus state
+- **Adaptive Table Separator**: Algorithm table separator now adapts to terminal width instead of fixed 100 characters
+- **Responsive Header**: Header gracefully degrades on narrow terminals (shows "[?] Help" when space is limited)
+
 ---
 
 ## [1.0.0] - 2025-12-22

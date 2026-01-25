@@ -7,6 +7,7 @@ import (
 
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 // updateAlgorithms handles key messages for the algorithms section.
@@ -39,14 +40,40 @@ func (m DashboardModel) renderAlgorithmTable() string {
 	b.WriteString(titleStyle.Render("ALGORITHMS"))
 	b.WriteString("\n\n")
 
-	// Table header
-	header := fmt.Sprintf("  %-3s %-18s %-32s %6s  %-12s %s",
-		"#", "Algorithm", "Progress", "%", "Duration", "Status")
+	// Table header - using same column widths as rows
+	colRank := lipgloss.NewStyle().Width(3)
+	colName := lipgloss.NewStyle().Width(25)
+	colProgress := lipgloss.NewStyle().Width(30)
+	colPct := lipgloss.NewStyle().Width(8).Align(lipgloss.Right)
+	colDur := lipgloss.NewStyle().Width(12).Align(lipgloss.Right)
+	colStatus := lipgloss.NewStyle().Width(6).Align(lipgloss.Center)
+
+	header := lipgloss.JoinHorizontal(lipgloss.Center,
+		"  ",
+		colRank.Render("#"),
+		" ",
+		colName.Render("Algorithm"),
+		" ",
+		colProgress.Render("Progress"),
+		" ",
+		colPct.Render("%"),
+		" ",
+		colDur.Render("Duration"),
+		" ",
+		colStatus.Render("Status"),
+	)
 	b.WriteString(m.styles.TableHeader.Render(header))
 	b.WriteString("\n")
 
-	// Separator
-	b.WriteString(m.styles.Primary.Render(strings.Repeat("━", 90)))
+	// Separator - adapt to terminal width (accounting for box padding)
+	separatorWidth := m.width - 8
+	if separatorWidth < 50 {
+		separatorWidth = 50
+	}
+	if separatorWidth > 120 {
+		separatorWidth = 120
+	}
+	b.WriteString(m.styles.Primary.Render(strings.Repeat("━", separatorWidth)))
 	b.WriteString("\n")
 
 	// Algorithm rows
@@ -74,33 +101,44 @@ func (m DashboardModel) renderAlgorithmRow(idx int, name string) string {
 		rowStyle = m.styles.MenuItemActive
 	}
 
-	// Rank column
+	// Column styles with fixed widths
+	colRank := lipgloss.NewStyle().Width(3)
+	colName := lipgloss.NewStyle().Width(25)
+	colPct := lipgloss.NewStyle().Width(8).Align(lipgloss.Right)
+	colDur := lipgloss.NewStyle().Width(12).Align(lipgloss.Right)
+	colStatus := lipgloss.NewStyle().Width(6).Align(lipgloss.Center)
+
+	// Rank column - keep as plain text, apply color separately
 	rank := fmt.Sprintf("%d", idx+1)
+	isWinner := false
 	if status == StatusComplete && m.results.hasResults && len(m.results.results) > 0 {
 		// Find position in results (sorted by duration)
 		for pos, r := range m.results.results {
 			if r.Name == name {
 				rank = fmt.Sprintf("%d", pos+1)
 				if pos == 0 {
-					rank = m.styles.Success.Render("1")
+					isWinner = true
 				}
 				break
 			}
 		}
 	}
 
-	// Progress bar
+	// Truncate algorithm name to 25 characters max
+	displayName := truncateString(name, 25)
+
+	// Progress bar (always 30 chars wide)
 	bar := m.renderProgressBar(progress, 30)
 
 	// Percentage
-	pct := fmt.Sprintf("%5.1f%%", progress*100)
+	pct := fmt.Sprintf("%.1f%%", progress*100)
 
 	// Duration column
-	durStr := "     -     "
+	durStr := "-"
 	if status == StatusComplete {
-		durStr = fmt.Sprintf("%12s", formatDuration(duration))
+		durStr = formatDuration(duration)
 	} else if status == StatusRunning && m.calculation.active {
-		durStr = fmt.Sprintf("%12s", "...")
+		durStr = "..."
 	}
 
 	// Status indicator
@@ -109,18 +147,47 @@ func (m DashboardModel) renderAlgorithmRow(idx int, name string) string {
 	case StatusIdle:
 		statusStr = m.styles.Muted.Render("IDLE")
 	case StatusRunning:
-		statusStr = m.styles.Info.Render(" ▶  ")
+		statusStr = m.styles.Info.Render("▶")
 	case StatusComplete:
-		statusStr = m.styles.Success.Render(" OK ")
+		statusStr = m.styles.Success.Render("OK")
 	case StatusError:
-		statusStr = m.styles.Error.Render("ERR ")
+		statusStr = m.styles.Error.Render("ERR")
 	}
 
-	// Build row
-	row := fmt.Sprintf("  %-3s %-18s %s %s %s %s",
-		rank, name, bar, pct, durStr, statusStr)
+	// Render rank with color applied after width
+	rankRendered := colRank.Render(rank)
+	if isWinner {
+		rankRendered = colRank.Foreground(m.styles.Success.GetForeground()).Render(rank)
+	}
+
+	// Build row using lipgloss for proper alignment with ANSI codes
+	row := lipgloss.JoinHorizontal(lipgloss.Center,
+		"  ",
+		rankRendered,
+		" ",
+		colName.Render(displayName),
+		" ",
+		bar,
+		" ",
+		colPct.Render(pct),
+		" ",
+		colDur.Render(durStr),
+		" ",
+		colStatus.Render(statusStr),
+	)
 
 	return rowStyle.Render(row)
+}
+
+// truncateString truncates a string to maxLen characters, adding "..." if truncated.
+func truncateString(s string, maxLen int) string {
+	if len(s) <= maxLen {
+		return s
+	}
+	if maxLen <= 3 {
+		return s[:maxLen]
+	}
+	return s[:maxLen-3] + "..."
 }
 
 // renderProgressBar renders a progress bar.

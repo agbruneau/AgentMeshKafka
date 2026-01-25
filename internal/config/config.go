@@ -26,7 +26,7 @@ const (
 // These can be overridden via command-line flags or environment variables.
 const (
 	// DefaultN is the default Fibonacci index to calculate.
-	DefaultN uint64 = 250_000_000
+	DefaultN uint64 = 100_000_000
 	// DefaultTimeout is the default calculation timeout.
 	DefaultTimeout = 5 * time.Minute
 	// DefaultPort is the default server port.

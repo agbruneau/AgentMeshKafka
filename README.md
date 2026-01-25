@@ -378,8 +378,12 @@ fibcalc --tui --theme light # Light theme
 The dashboard has three main sections that you navigate with `Tab`:
 
 1. **Input Section** - Enter N value and trigger calculations
+   - Use `Left`/`Right` arrows to navigate between the input field and buttons
+   - `Enter` on Calculate button runs single algorithm, on Compare button runs all algorithms
 2. **Algorithms Section** - View all algorithms with real-time progress bars
+   - Use `Up`/`Down` to select algorithm for single calculation
 3. **Results Section** - See calculation results with formatting options
+   - Toggle details, hex display, and save results
 
 ### Keyboard Shortcuts
 
@@ -387,10 +391,12 @@ The dashboard has three main sections that you navigate with `Tab`:
 |-----|--------|
 | `Tab` / `Shift+Tab` | Navigate between sections |
 | `↑` / `↓` / `k` / `j` | Navigate within section |
-| `Enter` | Confirm / Start calculation |
+| `←` / `→` / `h` / `l` | Navigate between input field and buttons (Input section) |
+| `Enter` | Confirm / Start calculation (action depends on focused element) |
 | `Esc` | Cancel running calculation |
 | `c` | Calculate F(N) with selected algorithm |
 | `m` | Compare all algorithms |
+| `d` | Toggle result details view |
 | `x` | Toggle hexadecimal display |
 | `v` | Toggle full value display |
 | `t` | Cycle theme (dark/light/none) |

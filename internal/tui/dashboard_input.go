@@ -16,7 +16,31 @@ import (
 
 // updateInput handles key messages for the input section.
 func (m DashboardModel) updateInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	// When on buttons (not editing input)
 	if !m.input.inputActive {
+		switch {
+		case key.Matches(msg, m.keys.Left):
+			if m.input.buttonIndex > 0 {
+				m.input.buttonIndex--
+			} else {
+				// Move to input field
+				m.input.inputActive = true
+			}
+			return m, nil
+		case key.Matches(msg, m.keys.Right):
+			if m.input.buttonIndex < 1 {
+				m.input.buttonIndex++
+			}
+			return m, nil
+		case key.Matches(msg, m.keys.Enter):
+			if m.input.buttonIndex == 0 {
+				return m.startSingleCalculation()
+			}
+			return m.startComparison()
+		case key.Matches(msg, m.keys.Up), key.Matches(msg, m.keys.Down):
+			m.focusedSection = SectionAlgorithms
+			return m, nil
+		}
 		return m, nil
 	}
 
@@ -48,6 +72,10 @@ func (m DashboardModel) updateInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case tea.KeyRight:
 		if m.input.cursorPos < len(m.input.n) {
 			m.input.cursorPos++
+		} else {
+			// At end of input, move to buttons
+			m.input.inputActive = false
+			m.input.buttonIndex = 0
 		}
 	case tea.KeyHome:
 		m.input.cursorPos = 0
@@ -181,13 +209,20 @@ func (m DashboardModel) renderInputSection() string {
 		display = "Enter N..."
 	}
 
-	inputField := fmt.Sprintf("  N: %s", inputStyle.Width(30).Render(display))
+	// Create label and input box separately for proper vertical alignment
+	label := lipgloss.NewStyle().PaddingLeft(2).Render("N:")
+	inputBox := inputStyle.Width(30).Render(display)
+	inputField := lipgloss.JoinHorizontal(lipgloss.Center, label, " ", inputBox)
 
 	// Buttons with visual feedback
 	calcBtnStyle := m.styles.Button
 	compareBtnStyle := m.styles.Button
 	if m.focusedSection == SectionInput && !m.input.inputActive {
-		calcBtnStyle = m.styles.ButtonFocused
+		if m.input.buttonIndex == 0 {
+			calcBtnStyle = m.styles.ButtonFocused
+		} else {
+			compareBtnStyle = m.styles.ButtonFocused
+		}
 	}
 
 	calcBtn := calcBtnStyle.Render("▶ CALCULATE")

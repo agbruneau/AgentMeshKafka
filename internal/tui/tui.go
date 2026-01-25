@@ -23,6 +23,10 @@ func Run(cfg config.AppConfig, calculatorMap map[string]fibonacci.Calculator) in
 	for _, c := range calculatorMap {
 		calculators = append(calculators, c)
 	}
+
+	// In TUI mode, disable detailed calculation by default
+	cfg.Details = false
+
 	// Use the new HTOP-style dashboard model
 	model := NewDashboardModel(cfg, calculators)
 
@@ -48,6 +52,10 @@ func RunWithOutput(cfg config.AppConfig, calculatorMap map[string]fibonacci.Calc
 	for _, c := range calculatorMap {
 		calculators = append(calculators, c)
 	}
+
+	// In TUI mode, disable detailed calculation by default
+	cfg.Details = false
+
 	// Use the new HTOP-style dashboard model
 	model := NewDashboardModel(cfg, calculators)
 

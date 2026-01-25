@@ -221,15 +221,20 @@ The TUI uses the [Charm](https://charm.sh) stack following the Elm Architecture 
 
 ```
 internal/tui/
-├── tui.go              # Entry point, tea.NewProgram()
-├── model.go            # Root model with state management
-├── messages.go         # Message types (*Msg structs)
-├── commands.go         # Async commands (tea.Cmd functions)
-├── keys.go             # Keyboard bindings
-├── styles.go           # Lipgloss styles
-├── presenter.go        # Interface implementations
-├── view_*.go           # View rendering (one per screen)
-└── tui_test.go         # Tests
+├── tui.go                  # Entry point, tea.NewProgram()
+├── dashboard.go            # DashboardModel (Init, Update, View)
+├── dashboard_input.go      # Input section (N field, button navigation)
+├── dashboard_algorithms.go # Algorithm table with progress bars
+├── dashboard_results.go    # Results display section
+├── dashboard_overlays.go   # Help overlay, header, footer
+├── sections.go             # Section type enum and navigation
+├── messages.go             # Message types (*Msg structs)
+├── commands.go             # Async commands (tea.Cmd functions)
+├── keys.go                 # Keyboard bindings (KeyMap)
+├── styles.go               # Lipgloss styles integrated with themes
+├── presenter.go            # Interface implementations
+├── model.go                # Legacy model (backward compatibility)
+└── *_test.go               # Tests
 ```
 
 #### Adding a New View

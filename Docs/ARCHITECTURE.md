@@ -165,10 +165,10 @@ Redesigned as a single-screen HTOP-style dashboard:
 - **`dashboard.go`**: DashboardModel with consolidated state (Init, Update, View)
 - **`sections.go`**: Section type (Input, Algorithms, Results) and navigation helpers
 - **Dashboard Sections**:
-  - `dashboard_input.go`: Input section (N field, calculate/compare buttons)
-  - `dashboard_algorithms.go`: Algorithm table with real-time progress bars
-  - `dashboard_results.go`: Results display section
-  - `dashboard_overlays.go`: Help overlay and settings panel
+  - `dashboard_input.go`: Input section (N field, calculate/compare buttons with left/right navigation and button focus tracking via `buttonIndex`)
+  - `dashboard_algorithms.go`: Algorithm table with real-time progress bars and adaptive separator width
+  - `dashboard_results.go`: Results display section with detail toggle
+  - `dashboard_overlays.go`: Help overlay and responsive header layout
 - **`messages.go`**: Message types for state updates (ProgressMsg, ResultMsg, etc.)
 - **`commands.go`**: Async commands for calculations and progress listening
 - **`keys.go`**: Keyboard bindings (section navigation, actions, quit)
@@ -321,16 +321,19 @@ Centralised error handling:
    c. Section-specific handlers update focused section
    d. View() renders all sections on single screen
 5. Dashboard sections (all visible at once):
-   - Input: N field and action buttons
+   - Input: N field and action buttons (Calculate, Compare)
+     * Left/Right navigation between input field and buttons
+     * buttonIndex tracks which button is focused (0=Calculate, 1=Compare)
    - Algorithms: Table with real-time progress bars for all algorithms
    - Results: Calculation results with formatting options
 6. Calculation flow:
    a. User enters N in input section, presses Enter or 'c'
-   b. startSingleCalculation() triggers runCalculation command
-   c. ProgressMsg updates progress bar for running algorithm
-   d. CalculationResultMsg updates results section
+   b. If on Calculate button: startSingleCalculation() triggers runCalculation
+   c. If on Compare button: startComparison() runs all algorithms
+   d. ProgressMsg updates progress bar for running algorithm(s)
+   e. CalculationResultMsg/ComparisonResultsMsg updates results section
 7. Comparison flow:
-   a. User presses 'm' to compare all algorithms
+   a. User presses 'm' or Enter on Compare button
    b. startComparison() runs all calculators in parallel
    c. All progress bars update simultaneously
    d. ComparisonResultsMsg updates algorithms table and results

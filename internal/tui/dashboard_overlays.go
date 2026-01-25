@@ -128,11 +128,22 @@ func (m DashboardModel) renderHeader() string {
 	theme := ui.GetCurrentTheme()
 
 	left := m.styles.Title.Render("FIBONACCI CALCULATOR")
-	right := m.styles.Muted.Render(fmt.Sprintf("Theme: %s  [?] Help", theme.Name))
+	rightFull := fmt.Sprintf("Theme: %s  [?] Help", theme.Name)
+	rightShort := "[?] Help"
 
-	// Calculate spacing
+	// Choose right text based on available space
+	right := m.styles.Muted.Render(rightFull)
 	spacing := m.width - lipgloss.Width(left) - lipgloss.Width(right) - 4
-	if spacing < 0 {
+
+	// If not enough space, use shorter version
+	if spacing < 2 {
+		right = m.styles.Muted.Render(rightShort)
+		spacing = m.width - lipgloss.Width(left) - lipgloss.Width(right) - 4
+	}
+
+	// If still not enough space, omit right entirely
+	if spacing < 2 {
+		right = ""
 		spacing = 0
 	}
 
@@ -156,7 +167,11 @@ func (m DashboardModel) renderFooter() string {
 	case SectionAlgorithms:
 		hints = append(hints, "Enter:Run", "↑↓:Select", "Tab:Next")
 	case SectionResults:
-		hints = append(hints, "x:Hex", "v:Full", "Ctrl+S:Save", "Tab:Next")
+		if m.results.showDetails {
+			hints = append(hints, "d:Hide", "x:Hex", "v:Full", "Ctrl+S:Save", "Tab:Next")
+		} else {
+			hints = append(hints, "d:Details", "Ctrl+S:Save", "Tab:Next")
+		}
 	}
 
 	// Global hints

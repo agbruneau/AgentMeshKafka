@@ -50,6 +50,7 @@ type InputState struct {
 	n           string
 	cursorPos   int
 	inputActive bool
+	buttonIndex int // 0 = Calculate, 1 = Compare
 }
 
 // AlgorithmTableState holds the algorithm comparison table state.
@@ -72,13 +73,14 @@ type CalculationState struct {
 
 // ResultsDisplayState holds the results display state.
 type ResultsDisplayState struct {
-	hasResults bool
-	results    []orchestration.CalculationResult
-	n          uint64
-	showHex    bool
-	showFull   bool
-	cursor     int
-	consistent bool
+	hasResults  bool
+	results     []orchestration.CalculationResult
+	n           uint64
+	showHex     bool
+	showFull    bool
+	showDetails bool // When false, only show bits count; when true, show full result
+	cursor      int
+	consistent  bool
 }
 
 // NewDashboardModel creates a new dashboard model.
@@ -149,7 +151,7 @@ func (m DashboardModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case ThemeChangedMsg:
 		return m.handleThemeChanged(msg)
 	case TickMsg:
-		return m, tickCmd(100*time.Millisecond)
+		return m, tickCmd(100 * time.Millisecond)
 	}
 	return m, nil
 }
@@ -195,6 +197,9 @@ func (m DashboardModel) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case key.Matches(msg, m.keys.Full):
 		m.results.showFull = !m.results.showFull
+		return m, nil
+	case key.Matches(msg, m.keys.Details):
+		m.results.showDetails = !m.results.showDetails
 		return m, nil
 	case key.Matches(msg, m.keys.Save):
 		return m.saveResult()

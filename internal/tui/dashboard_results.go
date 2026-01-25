@@ -48,6 +48,7 @@ func (m DashboardModel) renderResultsSection() string {
 	var bestResult string
 	var bestAlgo string
 	var bestDuration string
+	var bitCount int
 
 	if len(m.results.results) > 0 {
 		for _, r := range m.results.results {
@@ -56,6 +57,7 @@ func (m DashboardModel) renderResultsSection() string {
 					bestResult = r.Result.String()
 					bestAlgo = r.Name
 					bestDuration = formatDuration(r.Duration)
+					bitCount = r.Result.BitLen()
 				}
 				break
 			}
@@ -67,15 +69,59 @@ func (m DashboardModel) renderResultsSection() string {
 		return b.String()
 	}
 
-	// Format result
+	// Default view: show Global Status like CLI mode
+	if !m.results.showDetails {
+		// Global Status line
+		if len(m.results.results) > 1 {
+			if m.results.consistent {
+				b.WriteString(fmt.Sprintf("  %s %s\n",
+					m.styles.Success.Bold(true).Render("Global Status: Success."),
+					m.styles.Success.Render("All valid results are consistent."),
+				))
+			} else {
+				b.WriteString(fmt.Sprintf("  %s %s\n",
+					m.styles.Error.Bold(true).Render("Global Status: CRITICAL ERROR!"),
+					m.styles.Error.Render("Inconsistency detected between results."),
+				))
+			}
+		} else {
+			b.WriteString(fmt.Sprintf("  %s\n",
+				m.styles.Success.Bold(true).Render("Global Status: Success."),
+			))
+		}
+
+		// Result binary size line (like CLI)
+		b.WriteString(fmt.Sprintf("  Result binary size: %s bits.\n",
+			m.styles.ResultValue.Render(formatNumber(bitCount)),
+		))
+
+		// Stats line
+		b.WriteString(fmt.Sprintf("\n  Fastest: %s (%s)",
+			m.styles.Success.Render(bestAlgo),
+			m.styles.Muted.Render(bestDuration),
+		))
+
+		// Actions hint
+		b.WriteString("\n\n")
+		b.WriteString("  ")
+		b.WriteString(m.styles.HelpKey.Render("[d]"))
+		b.WriteString(m.styles.HelpDesc.Render(" Show details  "))
+		b.WriteString(m.styles.HelpKey.Render("[Ctrl+S]"))
+		b.WriteString(m.styles.HelpDesc.Render(" Save"))
+
+		return b.String()
+	}
+
+	// Detailed view: show full result
 	displayResult := formatResultValue(bestResult, m.results.showHex, m.results.showFull, m.getMaxValueLength())
 	digitCount := len(bestResult)
 
 	// Result line
-	b.WriteString(fmt.Sprintf("  %s = %s  (%s digits)\n",
+	b.WriteString(fmt.Sprintf("  %s = %s  (%s digits, %s bits)\n",
 		m.styles.Primary.Render(fmt.Sprintf("F(%d)", m.results.n)),
 		m.styles.ResultValue.Render(displayResult),
 		m.styles.Info.Render(formatNumber(digitCount)),
+		m.styles.Info.Render(formatNumber(bitCount)),
 	))
 
 	// Stats line
@@ -96,6 +142,8 @@ func (m DashboardModel) renderResultsSection() string {
 	// Actions hint
 	b.WriteString("\n\n")
 	b.WriteString("  ")
+	b.WriteString(m.styles.HelpKey.Render("[d]"))
+	b.WriteString(m.styles.HelpDesc.Render(" Hide details  "))
 	b.WriteString(m.styles.HelpKey.Render("[x]"))
 	b.WriteString(m.styles.HelpDesc.Render(" Toggle hex  "))
 	b.WriteString(m.styles.HelpKey.Render("[v]"))

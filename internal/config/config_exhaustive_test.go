@@ -236,8 +236,8 @@ func TestParseConfigDefaults(t *testing.T) {
 	}
 
 	// Verify defaults
-	if cfg.N != 250000000 {
-		t.Errorf("Default N: expected 250000000, got %d", cfg.N)
+	if cfg.N != 100000000 {
+		t.Errorf("Default N: expected 100000000, got %d", cfg.N)
 	}
 	if cfg.Verbose {
 		t.Error("Default Verbose should be false")

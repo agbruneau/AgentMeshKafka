@@ -18,8 +18,8 @@ func TestParseConfig(t *testing.T) {
 			t.Fatalf("Unexpected error: %v", err)
 		}
 
-		if cfg.N != 250000000 {
-			t.Errorf("Expected default N 250000000, got %d", cfg.N)
+		if cfg.N != 100000000 {
+			t.Errorf("Expected default N 100000000, got %d", cfg.N)
 		}
 		if cfg.Algo != "all" {
 			t.Errorf("Expected default Algo 'all', got %s", cfg.Algo)

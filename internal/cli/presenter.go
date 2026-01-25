@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"sync"
-	"text/tabwriter"
 	"time"
 
 	apperrors "github.com/agbru/fibcalc/internal/errors"
@@ -36,12 +35,33 @@ var _ orchestration.ResultPresenter = CLIResultPresenter{}
 
 // PresentComparisonTable displays the comparison summary table with
 // algorithm names, durations, and status in a formatted tabular layout.
+// Uses manual padding to correctly handle ANSI color codes.
 func (CLIResultPresenter) PresentComparisonTable(results []orchestration.CalculationResult, out io.Writer) {
 	fmt.Fprintf(out, "\n--- Comparison Summary ---\n")
-	tw := tabwriter.NewWriter(out, 0, 0, 3, ' ', 0)
-	fmt.Fprintf(tw, "%sAlgorithm%s\t%sDuration%s\t%sStatus%s\n",
-		ui.ColorUnderline(), ui.ColorReset(), ui.ColorUnderline(), ui.ColorReset(), ui.ColorUnderline(), ui.ColorReset())
 
+	// Find the maximum algorithm name width for proper alignment
+	maxNameLen := 9 // "Algorithm" header length
+	maxDurationLen := 8 // "Duration" header length
+	for _, res := range results {
+		if len(res.Name) > maxNameLen {
+			maxNameLen = len(res.Name)
+		}
+		duration := FormatExecutionDuration(res.Duration)
+		if res.Duration == 0 {
+			duration = "< 1µs"
+		}
+		if len(duration) > maxDurationLen {
+			maxDurationLen = len(duration)
+		}
+	}
+
+	// Print header with proper padding
+	fmt.Fprintf(out, "%sAlgorithm%s%s   %sDuration%s%s   %sStatus%s\n",
+		ui.ColorUnderline(), ui.ColorReset(), padRight("", maxNameLen-9),
+		ui.ColorUnderline(), ui.ColorReset(), padRight("", maxDurationLen-8),
+		ui.ColorUnderline(), ui.ColorReset())
+
+	// Print each result row
 	for _, res := range results {
 		var status string
 		if res.Err != nil {
@@ -53,14 +73,19 @@ func (CLIResultPresenter) PresentComparisonTable(results []orchestration.Calcula
 		if res.Duration == 0 {
 			duration = "< 1µs"
 		}
-		fmt.Fprintf(tw, "%s%s%s\t%s%s%s\t%s\n",
-			ui.ColorBlue(), res.Name, ui.ColorReset(),
-			ui.ColorYellow(), duration, ui.ColorReset(),
+		fmt.Fprintf(out, "%s%s%s%s   %s%s%s%s   %s\n",
+			ui.ColorBlue(), res.Name, ui.ColorReset(), padRight("", maxNameLen-len(res.Name)),
+			ui.ColorYellow(), duration, ui.ColorReset(), padRight("", maxDurationLen-len(duration)),
 			status)
 	}
-	if err := tw.Flush(); err != nil {
-		fmt.Fprintf(out, "Warning: failed to flush tabwriter: %v\n", err)
+}
+
+// padRight returns a string of spaces with the given length.
+func padRight(s string, length int) string {
+	if length <= 0 {
+		return s
 	}
+	return s + fmt.Sprintf("%*s", length, "")
 }
 
 // PresentResult displays the final calculation result using the CLI's

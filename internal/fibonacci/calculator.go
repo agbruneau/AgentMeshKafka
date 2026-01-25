@@ -177,7 +177,7 @@ func (c *FibCalculator) CalculateWithObservers(ctx context.Context, subject *Pro
 		calculationsTotal.WithLabelValues(algoName, status).Inc()
 		calculationDuration.WithLabelValues(algoName).Observe(duration)
 
-		log.Debug().
+		log.Trace().
 			Str("algo", algoName).
 			Uint64("n", n).
 			Float64("duration", duration).

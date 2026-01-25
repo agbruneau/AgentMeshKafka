@@ -19,13 +19,14 @@ type KeyMap struct {
 	Quit   key.Binding
 
 	// Shortcuts
-	Calculate  key.Binding
-	Compare    key.Binding
-	Theme      key.Binding
-	Settings   key.Binding
-	Save       key.Binding
-	Hex        key.Binding
-	Full       key.Binding
+	Calculate key.Binding
+	Compare   key.Binding
+	Theme     key.Binding
+	Settings  key.Binding
+	Save      key.Binding
+	Hex       key.Binding
+	Full      key.Binding
+	Details   key.Binding
 
 	// Legacy aliases (for backward compatibility)
 	NewCalc    key.Binding
@@ -107,6 +108,10 @@ func DefaultKeyMap() KeyMap {
 		Full: key.NewBinding(
 			key.WithKeys("v"),
 			key.WithHelp("v", "full value"),
+		),
+		Details: key.NewBinding(
+			key.WithKeys("d"),
+			key.WithHelp("d", "details"),
 		),
 		// Legacy aliases
 		NewCalc:    calcBinding,

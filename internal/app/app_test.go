@@ -106,8 +106,8 @@ func TestNew(t *testing.T) {
 			t.Fatal("New() should return application even with empty args")
 		}
 		// Should use default program name
-		if app.Config.N != 250000000 {
-			t.Errorf("Expected default N=250000000, got N=%d", app.Config.N)
+		if app.Config.N != 100000000 {
+			t.Errorf("Expected default N=100000000, got N=%d", app.Config.N)
 		}
 	})
 }

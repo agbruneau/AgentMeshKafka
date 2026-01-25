@@ -20,6 +20,7 @@ import (
 	"github.com/agbru/fibcalc/internal/server"
 	"github.com/agbru/fibcalc/internal/tui"
 	"github.com/agbru/fibcalc/internal/ui"
+	"github.com/rs/zerolog"
 )
 
 // Application represents the fibcalc application instance.
@@ -128,6 +129,10 @@ func (a *Application) Run(ctx context.Context, out io.Writer) int {
 	if a.Config.Completion != "" {
 		return a.runCompletion(out)
 	}
+
+	// Disable trace-level logging by default to avoid polluting CLI output.
+	// Server mode may override this to enable more verbose logging.
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 
 	// Initialize CLI theme (respects --no-color flag and NO_COLOR env var)
 	ui.InitTheme(a.Config.NoColor)
